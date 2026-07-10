@@ -749,6 +749,23 @@ export const DISCIPLES: Array<Disciple> = [
   }),
 ]
 
+/** Monthly disciples-per-stage history for the dashboard trend chart.
+ *  Prototype-only: the real app derives this from stage_transitions history.
+ *  The current month is appended live from the actual disciple pool. */
+export interface StageTrendHistory {
+  months: Array<string>
+  counts: Record<Stage, Array<number>>
+}
+
+export const STAGE_TREND_HISTORY: StageTrendHistory = {
+  months: ['Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  counts: {
+    'New Believer': [6, 5, 4, 3, 2],
+    Growing: [8, 10, 12, 13, 14],
+    Leader: [12, 15, 18, 22, 26],
+  },
+}
+
 /** Mary-Ann Caldoza carries a 2-meeting no-show streak on purpose (seed brief). */
 export const MEETINGS: Array<Meeting> = [
   {

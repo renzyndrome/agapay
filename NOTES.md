@@ -52,6 +52,15 @@
   showed CVD separation passes but gold/green need relief, so every segment ships
   with visible labels and counts (never color alone) and 2px gaps between fills.
 
+- **2026-07-10 (v3) — Comprehensive dashboard.** Restructured into balanced rows:
+  KPI tiles (disciples / need attention / meetings / avg checklist) → stage cards →
+  **stage-growth line chart** (Feb–Jul, one line per stage, hover tooltip, direct
+  end labels, legend; history is static seed in `STAGE_TREND_HISTORY` — real app
+  derives it from stage_transitions; current month appended from live counts) →
+  Quest Circles + This-week meetings → at-risk + discipler load. Growing line uses
+  gold-600 (`--color-amber`) instead of gold-500 — the pill tint fails contrast as
+  a 2px stroke on white.
+
 ## Batched questions for the design/product lead
 
 1. "At-risk" naming: home chip counts red-only, admin list counts amber+red —
