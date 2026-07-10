@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Poppins:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Caveat+Brush&family=Sacramento&display=swap">
+<link rel="stylesheet" href="_ds/quest-laguna-design-system-6c83c8d7-1f74-4de4-b988-f0eb1c4d984d/colors_and_type.css">
+<link rel="stylesheet" href="_ds/quest-laguna-design-system-6c83c8d7-1f74-4de4-b988-f0eb1c4d984d/styles.css">
+<script src="_ds/quest-laguna-design-system-6c83c8d7-1f74-4de4-b988-f0eb1c4d984d/_ds_bundle.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#EFE9DD;font-family:'Manrope',system-ui,sans-serif}
+a{color:#8E0E1E}a:hover{color:#D81E2F}
+@keyframes agSheetUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes agFade{from{opacity:0}to{opacity:1}}
+input,select,textarea,button{font-family:'Manrope',system-ui,sans-serif}
+::placeholder{color:rgba(11,11,12,.35)}
+</style>
+</helmet>
+
+<!-- prototype role bar -->
+<div style="height:48px;background:#0B0B0C;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;z-index:60">
+  <div style="display:flex;align-items:center;gap:8px">
+    <img src="assets/logo-mark.png" alt="Quest Laguna" style="width:22px;height:22px;border-radius:999px;display:block">
+    <span style="font:700 13px 'Poppins',sans-serif;color:#fff">Agapay</span>
+    <span style="font:600 10px 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)">prototype</span>
+  </div>
+  <div style="display:flex;gap:6px">
+    <div onClick="{{ toDiscipler }}" style="cursor:pointer;font:700 11px 'Manrope',sans-serif;padding:7px 14px;border-radius:999px;background:{{ roleBtnDiscBg }};color:{{ roleBtnDiscFg }}">Discipler</div>
+    <div onClick="{{ toAdmin }}" style="cursor:pointer;font:700 11px 'Manrope',sans-serif;padding:7px 14px;border-radius:999px;background:{{ roleBtnAdmBg }};color:{{ roleBtnAdmFg }}">Admin</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ DISCIPLER (mobile) ═══════════════════════ -->
+<sc-if value="{{ isDiscipler }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:430px;margin:0 auto;height:calc(100vh - 48px);background:#FBF5E9;position:relative;display:flex;flex-direction:column;box-shadow:0 0 48px rgba(0,0,0,.10);overflow:hidden">
+
+  <!-- ─── HOME ─── -->
+  <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Discipler home" style="flex:1;overflow-y:auto;display:flex;flex-direction:column">
+    <!-- header (1b) -->
+    <div style="background:#FFFFFF;border-bottom:1px solid #E9DDC4;padding:18px 20px 16px;flex:none">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:8px">
+          <img src="assets/logo-mark.png" alt="Quest Laguna" style="width:26px;height:26px;border-radius:999px;display:block">
+          <span style="font:700 15px 'Poppins',sans-serif;color:#0B0B0C">Agapay</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="font:600 11px 'Manrope',sans-serif;color:rgba(11,11,12,.5)">Thu, Jul 10</span>
+          <div style="width:34px;height:34px;border-radius:999px;background:#F4ECDC;border:1px solid #E9DDC4;display:flex;align-items:center;justify-content:center;font:700 12px 'Poppins',sans-serif;color:#8E0E1E">MR</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:16px">
+        <div style="position:relative;width:64px;height:64px;flex:none">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="27" fill="none" stroke="#F4ECDC" stroke-width="7"></circle>
+            <circle cx="32" cy="32" r="27" fill="none" stroke="#D81E2F" stroke-width="7" stroke-linecap="round" stroke-dasharray="{{ ringDash }}" transform="rotate(-90 32 32)"></circle>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:800 20px 'Poppins',sans-serif;color:#0B0B0C">{{ queueCount }}</div>
+        </div>
+        <div style="flex:1">
+          <div style="font:700 17px 'Poppins',sans-serif;color:#0B0B0C;letter-spacing:-.01em">{{ homeTitle }}</div>
+          <div style="font:500 12px 'Manrope',sans-serif;color:rgba(11,11,12,.55);margin-top:2px">{{ homeSub }}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:14px;flex-wrap:wrap">
+        <span style="font:700 10.5px 'Manrope',sans-serif;color:#3A3437;background:#F4ECDC;border-radius:999px;padding:5px 10px">{{ chipTotal }}</span>
+        <span style="font:700 10.5px 'Manrope',sans-serif;color:#8E0E1E;background:#FDE4E7;border-radius:999px;padding:5px 10px">{{ chipRisk }}</span>
+        <span style="font:700 10.5px 'Manrope',sans-serif;color:#3A3437;background:#F4ECDC;border-radius:999px;padding:5px 10px">{{ chipMeet }}</span>
+      </div>
+    </div>
+
+    <!-- queue: quiet group -->
+    <sc-if value="{{ hasQuiet }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:20px 20px 0">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="width:8px;height:8px;border-radius:999px;background:#D81E2F"></span>
+        <span style="font:700 12.5px 'Manrope',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8E0E1E">Quiet for a while</span>
+      </div>
+      <sc-for list="{{ quietRows }}" as="row" hint-placeholder-count="1">
+        <div style="background:#FFFFFF;border-radius:16px;margin-top:10px;box-shadow:0 8px 24px rgba(0,0,0,.07);overflow:hidden">
+          <div onClick="{{ row.open }}" style="padding:14px 16px;display:flex;gap:12px;cursor:pointer">
+            <div style="width:44px;height:44px;border-radius:999px;background:{{ row.avBg }};display:flex;align-items:center;justify-content:center;font:700 14px 'Poppins',sans-serif;color:{{ row.avFg }};flex:none">{{ row.initials }}</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <span style="font:700 15px 'Poppins',sans-serif;color:#0B0B0C">{{ row.name }}</span>
+                <span style="font:700 9px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:{{ row.stageBg }};color:{{ row.stageFg }};border-radius:999px;padding:3px 8px;flex:none">{{ row.stage }}</span>
+              </div>
+              <div style="font:500 12px 'Manrope',sans-serif;color:rgba(11,11,12,.6);margin-top:4px;line-height:1.5">{{ row.blurb }}</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #F4ECDC">
+            <div onClick="{{ row.open }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;height:44px;font:700 11.5px 'Manrope',sans-serif;color:#8E0E1E;border-right:1px solid #F4ECDC">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path></svg>View</div>
+            <div onClick="{{ row.log }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;height:44px;font:700 11.5px 'Manrope',sans-serif;color:#8E0E1E;border-right:1px solid #F4ECDC">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Log</div>
+            <div onClick="{{ row.sched }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;height:44px;font:700 11.5px 'Manrope',sans-serif;color:#8E0E1E">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 11h18"></path></svg>Schedule</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <!-- queue: cooling group -->
+    <sc-if value="{{ hasCooling }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:20px 20px 0">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="width:8px;height:8px;border-radius:999px;background:#C28E0A"></span>
+        <span style="font:700 12.5px 'Manrope',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#9A7208">Cooling down</span>
+      </div>
+      <div style="background:#FFFFFF;border-radius:16px;margin-top:10px;box-shadow:0 8px 24px rgba(0,0,0,.07);overflow:hidden">
+        <sc-for list="{{ coolingRows }}" as="row" hint-placeholder-count="2">
+          <div style="padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #F4ECDC">
+            <div onClick="{{ row.open }}" style="cursor:pointer;display:flex;align-items:center;gap:12px;flex:1;min-width:0">
+              <div style="width:40px;height:40px;border-radius:999px;background:{{ row.avBg }};display:flex;align-items:center;justify-content:center;font:700 12px 'Poppins',sans-serif;color:{{ row.avFg }};flex:none">{{ row.initials }}</div>
+              <div style="flex:1;min-width:0">
+                <div style="font:700 14px 'Poppins',sans-serif;color:#0B0B0C">{{ row.name }}</div>
+                <div style="font:500 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.55)">{{ row.meta }}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;flex:none">
+              <div onClick="{{ row.log }}" style="cursor:pointer;width:40px;height:40px;border-radius:999px;background:#FBF5E9;border:1.5px solid #E9DDC4;display:flex;align-items:center;justify-content:center;color:#8E0E1E">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></div>
+              <div onClick="{{ row.sched }}" style="cursor:pointer;width:40px;height:40px;border-radius:999px;background:#FBF5E9;border:1.5px solid #E9DDC4;display:flex;align-items:center;justify-content:center;color:#8E0E1E">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 11h18"></path></svg></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- cleared celebration -->
+    <sc-if value="{{ queueEmpty }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:20px 20px 0">
+      <div style="background:#FFFFFF;border-radius:16px;padding:24px 20px;box-shadow:0 8px 24px rgba(0,0,0,.07);text-align:center">
+        <div style="width:56px;height:56px;border-radius:999px;background:#E4EFE0;display:flex;align-items:center;justify-content:center;margin:0 auto">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3E7A4E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"></path></svg>
+        </div>
+        <div style="font:700 17px 'Poppins',sans-serif;color:#0B0B0C;margin-top:12px">All caught up!</div>
+        <div style="font:500 12.5px 'Manrope',sans-serif;color:rgba(11,11,12,.55);margin-top:4px;line-height:1.55">Every disciple has been walked with recently. No one left behind.</div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- steady walkers -->
+    <div style="padding:20px 20px 0">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="width:8px;height:8px;border-radius:999px;background:#3E7A4E"></span>
+        <span style="font:700 12.5px 'Manrope',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#3E7A4E">Walking steady</span>
+        <span style="font:600 11px 'Manrope',sans-serif;color:rgba(11,11,12,.4);margin-left:auto">{{ steadyCount }}</span>
+      </div>
+      <div style="display:flex;margin-top:10px;padding-left:4px">
+        <sc-for list="{{ steadyAvs }}" as="av" hint-placeholder-count="4">
+          <div onClick="{{ av.open }}" style="cursor:pointer;width:38px;height:38px;border-radius:999px;background:#E4EFE0;border:2px solid #FBF5E9;display:flex;align-items:center;justify-content:center;font:700 12px 'Poppins',sans-serif;color:#3E7A4E;margin-left:{{ av.ml }}">{{ av.initials }}</div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- this week (1a rows) -->
+    <div style="display:flex;align-items:baseline;justify-content:space-between;padding:22px 20px 10px">
+      <span style="font:700 12.5px 'Manrope',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8E0E1E">This week</span>
+      <span onClick="{{ goMeetings }}" style="cursor:pointer;font:700 11px 'Manrope',sans-serif;color:#D81E2F">See all</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 20px 20px">
+      <sc-for list="{{ weekRows }}" as="m" hint-placeholder-count="3">
+        <div onClick="{{ goMeetings }}" style="cursor:pointer;background:#FFFFFF;border-radius:14px;padding:11px 14px;box-shadow:0 8px 24px rgba(0,0,0,.06);display:flex;align-items:center;gap:12px">
+          <div style="width:42px;text-align:center;flex:none">
+            <div style="font:700 10px 'Manrope',sans-serif;letter-spacing:.08em;color:#D81E2F">{{ m.dow }}</div>
+            <div style="font:800 18px 'Poppins',sans-serif;color:#0B0B0C;line-height:1.1">{{ m.day }}</div>
+          </div>
+          <div style="width:1px;align-self:stretch;background:#E9DDC4"></div>
+          <div style="flex:1;min-width:0">
+            <div style="font:700 13px 'Poppins',sans-serif;color:#0B0B0C">{{ m.name }}</div>
+            <div style="font:500 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.55)">{{ m.sub }}</div>
+          </div>
+          <span style="font:700 10px 'Manrope',sans-serif;color:#3A3437;background:#F4ECDC;border-radius:999px;padding:4px 9px;flex:none">{{ m.modeLabel }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- scripture footer -->
+    <div style="margin-top:auto;padding:10px 22px 20px;text-align:center">
+      <div style="font:italic 500 12px 'Manrope',sans-serif;color:rgba(11,11,12,.55);line-height:1.55">"And let us consider how we may spur one another on toward love and good deeds."</div>
+      <div style="font:700 10px 'Manrope',sans-serif;letter-spacing:.12em;color:#D81E2F;margin-top:4px">— HEBREWS 10:24</div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ─── DISCIPLES TAB ─── -->
+  <sc-if value="{{ showDiscTab }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="My disciples" style="flex:1;overflow-y:auto">
+    <div style="padding:20px 20px 12px;display:flex;align-items:baseline;justify-content:space-between">
+      <span style="font:700 20px 'Poppins',sans-serif;color:#0B0B0C;letter-spacing:-.01em">My Disciples</span>
+      <span style="font:600 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.45)">{{ myCountLabel }}</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 20px 20px">
+      <sc-for list="{{ myRows }}" as="r" hint-placeholder-count="5">
+        <div onClick="{{ r.open }}" style="cursor:pointer;background:#FFFFFF;border-radius:14px;padding:12px 14px;box-shadow:0 8px 24px rgba(0,0,0,.06);display:flex;align-items:center;gap:12px">
+          <div style="width:42px;height:42px;border-radius:999px;background:{{ r.avBg }};display:flex;align-items:center;justify-content:center;font:700 13px 'Poppins',sans-serif;color:{{ r.avFg }};flex:none">{{ r.initials }}</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font:700 14px 'Poppins',sans-serif;color:#0B0B0C">{{ r.name }}</span>
+              <span style="font:700 9px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:{{ r.stageBg }};color:{{ r.stageFg }};border-radius:999px;padding:3px 8px">{{ r.stage }}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+              <span style="width:7px;height:7px;border-radius:999px;background:{{ r.engDot }};flex:none"></span>
+              <span style="font:600 11px 'Manrope',sans-serif;color:rgba(11,11,12,.55)">{{ r.meta }}</span>
+            </div>
+          </div>
+          <div style="width:56px;flex:none">
+            <div style="height:5px;border-radius:999px;background:#F4ECDC;overflow:hidden"><div style="height:100%;border-radius:999px;background:#D81E2F;width:{{ r.chkW }}"></div></div>
+            <div style="font:700 10px 'Manrope',sans-serif;color:rgba(11,11,12,.45);text-align:right;margin-top:3px">{{ r.chkPct }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ─── MEETINGS TAB ─── -->
+  <sc-if value="{{ showMeetTab }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Meetings" style="flex:1;overflow-y:auto">
+    <div style="padding:20px 20px 12px;display:flex;align-items:center;justify-content:space-between">
+      <span style="font:700 20px 'Poppins',sans-serif;color:#0B0B0C;letter-spacing:-.01em">Meetings</span>
+      <div onClick="{{ openSchedBlank }}" style="cursor:pointer;display:flex;align-items:center;gap:6px;background:#D81E2F;color:#fff;border-radius:999px;height:36px;padding:0 14px;font:700 12px 'Manrope',sans-serif">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>New</div>
+    </div>
+    <div style="display:flex;gap:6px;padding:0 20px 14px">
+      <div onClick="{{ muUpcoming }}" style="cursor:pointer;font:700 11.5px 'Manrope',sans-serif;padding:8px 16px;border-radius:999px;background:{{ muUpBg }};color:{{ muUpFg }};border:1.5px solid #E9DDC4">Upcoming</div>
+      <div onClick="{{ muPast }}" style="cursor:pointer;font:700 11.5px 'Manrope',sans-serif;padding:8px 16px;border-radius:999px;background:{{ muPastBg }};color:{{ muPastFg }};border:1.5px solid #E9DDC4">Past</div>
+    </div>
+    <sc-if value="{{ showUpcoming }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 20px 20px">
+      <sc-for list="{{ upcomingRows }}" as="m" hint-placeholder-count="3">
+        <div style="background:#FFFFFF;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.06);overflow:hidden">
+          <div style="padding:12px 14px;display:flex;align-items:center;gap:12px">
+            <div style="width:42px;text-align:center;flex:none">
+              <div style="font:700 10px 'Manrope',sans-serif;letter-spacing:.08em;color:#D81E2F">{{ m.dow }}</div>
+              <div style="font:800 18px 'Poppins',sans-serif;color:#0B0B0C;line-height:1.1">{{ m.day }}</div>
+            </div>
+            <div style="width:1px;align-self:stretch;background:#E9DDC4"></div>
+            <div style="flex:1;min-width:0">
+              <div style="font:700 13px 'Poppins',sans-serif;color:#0B0B0C">{{ m.name }}</div>
+              <div style="font:500 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.55)">{{ m.sub }}</div>
+            </div>
+            <span style="font:700 10px 'Manrope',sans-serif;color:#3A3437;background:#F4ECDC;border-radius:999px;padding:4px 9px;flex:none">{{ m.modeLabel }}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #F4ECDC">
+            <div onClick="{{ m.complete }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;height:42px;font:700 11.5px 'Manrope',sans-serif;color:#3E7A4E;border-right:1px solid #F4ECDC">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"></path></svg>Done</div>
+            <div onClick="{{ m.cancel }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;height:42px;font:700 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.55);border-right:1px solid #F4ECDC">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>Cancel</div>
+            <div onClick="{{ m.noshow }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;height:42px;font:700 11.5px 'Manrope',sans-serif;color:#9A7208">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>No-show</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+    <sc-if value="{{ showPast }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 20px 20px">
+      <sc-for list="{{ pastRows }}" as="m" hint-placeholder-count="3">
+        <div style="background:#FFFFFF;border-radius:14px;padding:12px 14px;box-shadow:0 8px 24px rgba(0,0,0,.06);display:flex;align-items:center;gap:12px">
+          <div style="flex:1;min-width:0">
+            <div style="font:700 13px 'Poppins',sans-serif;color:#0B0B0C">{{ m.name }}</div>
+            <div style="font:500 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.55)">{{ m.sub }}</div>
+            <sc-if value="{{ m.hasNote }}" hint-placeholder-val="{{ false }}">
+              <div style="font:italic 500 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.5);margin-top:4px">"{{ m.note }}"</div>
+            </sc-if>
+          </div>
+          <span style="font:700 9.5px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:{{ m.stBg }};color:{{ m.stFg }};border-radius:999px;padding:4px 9px;flex:none">{{ m.stLabel }}</span>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <!-- ─── DISCIPLE PROFILE (overlay) ─── -->
+  <sc-if value="{{ showProfile }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Disciple profile" style="position:absolute;inset:0;background:#FBF5E9;z-index:20;display:flex;flex-direction:column;animation:agFade 180ms ease-out">
+    <div style="flex:none;background:#FFFFFF;border-bottom:1px solid #E9DDC4;padding:14px 16px;display:flex;align-items:center;gap:10px">
+      <div onClick="{{ closeProfile }}" style="cursor:pointer;width:36px;height:36px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:#0B0B0C">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6 6-6-6 6-6"></path></svg>
+      </div>
+      <span style="font:700 14px 'Poppins',sans-serif;color:#0B0B0C">Disciple profile</span>
+    </div>
+    <div style="flex:1;overflow-y:auto">
+      <!-- header -->
+      <div style="background:#FFFFFF;padding:18px 20px 16px;border-bottom:1px solid #E9DDC4">
+        <div style="display:flex;gap:14px;align-items:center">
+          <div style="width:60px;height:60px;border-radius:999px;background:{{ p.avBg }};display:flex;align-items:center;justify-content:center;font:700 19px 'Poppins',sans-serif;color:{{ p.avFg }};flex:none">{{ p.initials }}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font:700 19px 'Poppins',sans-serif;color:#0B0B0C;letter-spacing:-.01em">{{ p.name }}</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap">
+              <span style="font:700 9px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:{{ p.stageBg }};color:{{ p.stageFg }};border-radius:999px;padding:3px 9px">{{ p.stage }}</span>
+              <span style="font:700 9px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:{{ p.engBg }};color:{{ p.engFg }};border-radius:999px;padding:3px 9px">{{ p.engLabel }}</span>
+            </div>
+            <div style="font:500 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.55);margin-top:6px">Discipler: Marco Reyes · {{ p.inStage }} in stage</div>
+          </div>
+        </div>
+        <!-- sparkline -->
+        <div style="margin-top:16px;background:#FBF5E9;border-radius:12px;padding:12px 14px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <span style="font:700 10px 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:rgba(11,11,12,.5)">12-week attendance</span>
+            <span style="font:700 11px 'Manrope',sans-serif;color:#0B0B0C">{{ p.attendLabel }}</span>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:4px;height:30px;margin-top:8px">
+            <sc-for list="{{ p.bars }}" as="b" hint-placeholder-count="12">
+              <div style="flex:1;border-radius:3px;background:{{ b.c }};height:{{ b.h }}"></div>
+            </sc-for>
+          </div>
+        </div>
+        <sc-if value="{{ p.canPromote }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ openPromote }}" style="cursor:pointer;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:7px;height:44px;border-radius:999px;border:1.5px solid #D81E2F;color:#8E0E1E;font:700 13px 'Manrope',sans-serif">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg>
+            Promote to {{ p.nextStage }}</div>
+        </sc-if>
+      </div>
+      <!-- section tabs -->
+      <div style="display:flex;gap:5px;padding:14px 20px 4px;overflow-x:auto">
+        <div onClick="{{ pTabTimeline }}" style="cursor:pointer;flex:none;font:700 11.5px 'Manrope',sans-serif;padding:8px 14px;border-radius:999px;background:{{ ptTlBg }};color:{{ ptTlFg }};border:1.5px solid #E9DDC4">Timeline</div>
+        <div onClick="{{ pTabChecklist }}" style="cursor:pointer;flex:none;font:700 11.5px 'Manrope',sans-serif;padding:8px 14px;border-radius:999px;background:{{ ptCkBg }};color:{{ ptCkFg }};border:1.5px solid #E9DDC4">Checklist</div>
+        <div onClick="{{ pTabMeetings }}" style="cursor:pointer;flex:none;font:700 11.5px 'Manrope',sans-serif;padding:8px 14px;border-radius:999px;background:{{ ptMtBg }};color:{{ ptMtFg }};border:1.5px solid #E9DDC4">Meetings</div>
+        <div onClick="{{ pTabMilestones }}" style="cursor:pointer;flex:none;font:700 11.5px 'Manrope',sans-serif;padding:8px 14px;border-radius:999px;background:{{ ptMsBg }};color:{{ ptMsFg }};border:1.5px solid #E9DDC4">Milestones</div>
+      </div>
+
+      <sc-if value="{{ showPTimeline }}" hint-placeholder-val="{{ true }}">
+      <div style="padding:12px 20px 20px;display:flex;flex-direction:column">
+        <sc-for list="{{ p.timeline }}" as="ev" hint-placeholder-count="3">
+          <div style="display:flex;gap:12px">
+            <div style="display:flex;flex-direction:column;align-items:center;flex:none;width:30px">
+              <div style="width:30px;height:30px;border-radius:999px;background:{{ ev.iconBg }};display:flex;align-items:center;justify-content:center;color:{{ ev.iconFg }};font:700 10px 'Manrope',sans-serif">{{ ev.glyph }}</div>
+              <div style="width:2px;flex:1;background:#E9DDC4;margin:4px 0"></div>
+            </div>
+            <div style="flex:1;padding-bottom:16px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                <span style="font:700 13px 'Poppins',sans-serif;color:#0B0B0C">{{ ev.t }}</span>
+                <span style="font:600 10.5px 'Manrope',sans-serif;color:rgba(11,11,12,.45);flex:none">{{ ev.d }}</span>
+              </div>
+              <sc-if value="{{ ev.hasNote }}" hint-placeholder-val="{{ false }}">
+                <div style="font:500 12px 'Manrope',sans-serif;color:rgba(11,11,12,.6);margin-top:3px;line-height:1.5">{{ ev.note }}</div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ showPChecklist }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:12px 20px 20px">
+        <div style="background:#FFFFFF;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:16px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <span style="font:700 13px 'Poppins',sans-serif;color:#0B0B0C">{{ p.stage }} checklist</span>
+            <span style="font:700 12px 'Manrope',sans-serif;color:#8E0E1E">{{ p.chkPct }}</span>
+          </div>
+          <div style="height:6px;border-radius:999px;background:#F4ECDC;overflow:hidden;margin-top:8px"><div style="height:100%;border-radius:999px;background:#D81E2F;width:{{ p.chkW }}"></div></div>
+          <div style="display:flex;flex-direction:column;margin-top:8px">
+            <sc-for list="{{ p.checklist }}" as="it" hint-placeholder-count="5">
+              <div onClick="{{ it.toggle }}" style="cursor:pointer;display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #F4ECDC">
+                <div style="width:22px;height:22px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;background:{{ it.boxBg }};border:1.5px solid {{ it.boxBd }}">
+                  <sc-if value="{{ it.done }}" hint-placeholder-val="{{ false }}">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"></path></svg>
+                  </sc-if>
+                </div>
+                <span style="font:600 13px 'Manrope',sans-serif;color:{{ it.txtC }};text-decoration:{{ it.deco }}">{{ it.t }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ showPMeetings }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:12px 20px 20px;display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ p.meetRows }}" as="m" hint-placeholder-count="2">
+          <div style="background:#FFFFFF;border-radius:14px;padding:12px 14px;box-shadow:0 8px 24px rgba(0,0,0,.06);display:flex;align-items:center;gap:12px">
+            <div style="flex:1;min-width:0">
+              <div style="font:700 13px 'Poppins',sans-serif;color:#0B0B0C">{{ m.title }}</div>
+              <div style="font:500 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.55)">{{ m.sub }}</div>
+            </div>
+            <span style="font:700 9.5px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:{{ m.stBg }};color:{{ m.stFg }};border-radius:999px;padding:4px 9px;flex:none">{{ m.stLabel }}</span>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ showPMilestones }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:12px 20px 20px">
+        <div style="background:#FFFFFF;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:6px 16px">
+          <sc-for list="{{ p.milestones }}" as="ms" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #F4ECDC">
+              <div style="width:34px;height:34px;border-radius:999px;flex:none;display:flex;align-items:center;justify-content:center;background:{{ ms.discBg }}">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ ms.discFg }}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"></path></svg>
+              </div>
+              <div style="flex:1">
+                <div style="font:700 13px 'Poppins',sans-serif;color:#0B0B0C">{{ ms.t }}</div>
+                <div style="font:500 11.5px 'Manrope',sans-serif;color:{{ ms.dC }}">{{ ms.d }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- profile actions -->
+      <div style="display:flex;gap:8px;padding:0 20px 24px">
+        <div onClick="{{ openLogFromProfile }}" style="cursor:pointer;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#D81E2F;color:#fff;border-radius:999px;height:46px;font:700 13px 'Manrope',sans-serif;box-shadow:0 8px 28px rgba(216,30,47,.35)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Log activity</div>
+        <div onClick="{{ openSchedFromProfile }}" style="cursor:pointer;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#FFFFFF;border:1.5px solid #E9DDC4;color:#8E0E1E;border-radius:999px;height:46px;font:700 13px 'Manrope',sans-serif">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 11h18"></path></svg>Schedule</div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ─── TAB BAR ─── -->
+  <div style="flex:none;display:grid;grid-template-columns:1fr 1fr 1fr;background:#FFFFFF;border-top:1px solid #E9DDC4;padding:8px 8px 12px;z-index:10">
+    <div onClick="{{ goHome }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 0;color:{{ tabHomeC }}">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path></svg>
+      <span style="font:700 9.5px 'Manrope',sans-serif">Home</span>
+    </div>
+    <div onClick="{{ goDisciples }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 0;color:{{ tabDiscC }}">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <span style="font:700 9.5px 'Manrope',sans-serif">Disciples</span>
+    </div>
+    <div onClick="{{ goMeetings }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 0;color:{{ tabMeetC }}">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 11h18"></path></svg>
+      <span style="font:700 9.5px 'Manrope',sans-serif">Meetings</span>
+    </div>
+  </div>
+
+  <!-- ─── SHEETS / MODALS ─── -->
+  <sc-if value="{{ anySheet }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:40;display:flex;flex-direction:column;justify-content:flex-end">
+    <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(11,11,12,.4);animation:agFade 150ms ease-out"></div>
+
+    <!-- LOG ACTIVITY -->
+    <sc-if value="{{ showLogSheet }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Log activity" style="position:relative;background:#FFFFFF;border-radius:20px 20px 0 0;padding:18px 20px 24px;animation:agSheetUp 220ms cubic-bezier(.2,.7,.2,1)">
+      <div style="width:36px;height:4px;border-radius:999px;background:#E9DDC4;margin:0 auto 14px"></div>
+      <div style="font:700 16px 'Poppins',sans-serif;color:#0B0B0C">Log activity</div>
+      <div style="font:500 12px 'Manrope',sans-serif;color:rgba(11,11,12,.55);margin-top:2px">with <b style="color:#8E0E1E">{{ sheetName }}</b></div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+        <sc-for list="{{ logTypeChips }}" as="c" hint-placeholder-count="5">
+          <div onClick="{{ c.pick }}" style="cursor:pointer;font:700 11.5px 'Manrope',sans-serif;padding:9px 14px;border-radius:999px;background:{{ c.bg }};color:{{ c.fg }};border:1.5px solid {{ c.bd }}">{{ c.t }}</div>
+        </sc-for>
+      </div>
+      <div style="margin-top:12px">
+        <div style="font:700 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.5);margin-bottom:6px">Date</div>
+        <input type="date" value="{{ logDate }}" onChange="{{ onLogDate }}" style="width:100%;box-sizing:border-box;height:44px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FBF5E9;padding:0 12px;font:600 13px 'Manrope',sans-serif;color:#0B0B0C">
+      </div>
+      <div style="margin-top:12px">
+        <div style="font:700 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.5);margin-bottom:6px">Notes (optional)</div>
+        <textarea value="{{ logNotes }}" onChange="{{ onLogNotes }}" placeholder="How was the conversation?" style="width:100%;box-sizing:border-box;height:72px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FBF5E9;padding:10px 12px;font:500 13px 'Manrope',sans-serif;color:#0B0B0C;resize:none"></textarea>
+      </div>
+      <div onClick="{{ saveLog }}" style="cursor:pointer;margin-top:14px;display:flex;align-items:center;justify-content:center;background:#D81E2F;color:#fff;border-radius:999px;height:48px;font:700 14px 'Manrope',sans-serif;box-shadow:0 8px 28px rgba(216,30,47,.35)">Save activity</div>
+    </div>
+    </sc-if>
+
+    <!-- SCHEDULE MEETING -->
+    <sc-if value="{{ showSchedSheet }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Schedule meeting" style="position:relative;background:#FFFFFF;border-radius:20px 20px 0 0;padding:18px 20px 24px;animation:agSheetUp 220ms cubic-bezier(.2,.7,.2,1);max-height:82%;overflow-y:auto">
+      <div style="width:36px;height:4px;border-radius:999px;background:#E9DDC4;margin:0 auto 14px"></div>
+      <div style="font:700 16px 'Poppins',sans-serif;color:#0B0B0C">Schedule meeting</div>
+      <div style="margin-top:14px">
+        <div style="font:700 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.5);margin-bottom:6px">Disciple</div>
+        <select value="{{ schedWho }}" onChange="{{ onSchedWho }}" style="width:100%;box-sizing:border-box;height:44px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FBF5E9;padding:0 10px;font:600 13px 'Manrope',sans-serif;color:#0B0B0C">
+          <sc-for list="{{ discOptions }}" as="o" hint-placeholder-count="3">
+            <option value="{{ o.id }}">{{ o.name }}</option>
+          </sc-for>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+        <div>
+          <div style="font:700 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.5);margin-bottom:6px">Date</div>
+          <input type="date" value="{{ schedDate }}" onChange="{{ onSchedDate }}" style="width:100%;box-sizing:border-box;height:44px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FBF5E9;padding:0 12px;font:600 13px 'Manrope',sans-serif;color:#0B0B0C">
+        </div>
+        <div>
+          <div style="font:700 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.5);margin-bottom:6px">Time</div>
+          <input type="time" value="{{ schedTime }}" onChange="{{ onSchedTime }}" style="width:100%;box-sizing:border-box;height:44px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FBF5E9;padding:0 12px;font:600 13px 'Manrope',sans-serif;color:#0B0B0C">
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <div style="font:700 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.5);margin-bottom:6px">Duration</div>
+        <div style="display:flex;gap:6px">
+          <sc-for list="{{ durChips }}" as="c" hint-placeholder-count="4">
+            <div onClick="{{ c.pick }}" style="cursor:pointer;flex:1;text-align:center;font:700 12px 'Manrope',sans-serif;padding:10px 0;border-radius:999px;background:{{ c.bg }};color:{{ c.fg }};border:1.5px solid {{ c.bd }}">{{ c.t }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <div style="font:700 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.5);margin-bottom:6px">Mode</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div onClick="{{ modeInPerson }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;height:44px;border-radius:12px;font:700 12.5px 'Manrope',sans-serif;background:{{ mInBg }};color:{{ mInFg }};border:1.5px solid {{ mInBd }}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>In-person</div>
+          <div onClick="{{ modeOnline }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;height:44px;border-radius:12px;font:700 12.5px 'Manrope',sans-serif;background:{{ mOnBg }};color:{{ mOnFg }};border:1.5px solid {{ mOnBd }}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="6" width="13" height="12" rx="2"></rect><path d="m15 10 5-3v10l-5-3"></path></svg>Online</div>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <div style="font:700 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.5);margin-bottom:6px">{{ schedLocLabel }}</div>
+        <input type="text" value="{{ schedLoc }}" onChange="{{ onSchedLoc }}" placeholder="{{ schedLocPh }}" style="width:100%;box-sizing:border-box;height:44px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FBF5E9;padding:0 12px;font:600 13px 'Manrope',sans-serif;color:#0B0B0C">
+      </div>
+      <div style="margin-top:12px">
+        <div style="font:700 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.5);margin-bottom:6px">Repeats</div>
+        <div style="display:flex;gap:6px">
+          <sc-for list="{{ recChips }}" as="c" hint-placeholder-count="3">
+            <div onClick="{{ c.pick }}" style="cursor:pointer;flex:1;text-align:center;font:700 12px 'Manrope',sans-serif;padding:10px 0;border-radius:999px;background:{{ c.bg }};color:{{ c.fg }};border:1.5px solid {{ c.bd }}">{{ c.t }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div onClick="{{ saveSched }}" style="cursor:pointer;margin-top:16px;display:flex;align-items:center;justify-content:center;background:#D81E2F;color:#fff;border-radius:999px;height:48px;font:700 14px 'Manrope',sans-serif;box-shadow:0 8px 28px rgba(216,30,47,.35)">Schedule meeting</div>
+    </div>
+    </sc-if>
+
+    <!-- PROMOTE MODAL -->
+    <sc-if value="{{ showPromote }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Promote approval" style="position:relative;margin:auto 20px;align-self:center;width:calc(100% - 40px);box-sizing:border-box;background:#FFFFFF;border-radius:20px;padding:22px 20px;box-shadow:0 18px 40px rgba(0,0,0,.35);animation:agSheetUp 200ms cubic-bezier(.2,.7,.2,1)">
+      <div style="font:700 17px 'Poppins',sans-serif;color:#0B0B0C;letter-spacing:-.01em">Promote {{ p.first }}?</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
+        <span style="font:700 9px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:{{ p.stageBg }};color:{{ p.stageFg }};border-radius:999px;padding:4px 10px">{{ p.stage }}</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D81E2F" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg>
+        <span style="font:700 9px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:{{ p.nextBg }};color:{{ p.nextFg }};border-radius:999px;padding:4px 10px">{{ p.nextStage }}</span>
+      </div>
+      <div style="font:500 12.5px 'Manrope',sans-serif;color:rgba(11,11,12,.6);margin-top:12px;line-height:1.55">A short note is required — it becomes part of {{ p.first }}'s story and is visible to church leadership.</div>
+      <textarea value="{{ promoteNote }}" onChange="{{ onPromoteNote }}" placeholder="Why is this disciple ready? (required)" style="margin-top:12px;width:100%;box-sizing:border-box;height:84px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FBF5E9;padding:10px 12px;font:500 13px 'Manrope',sans-serif;color:#0B0B0C;resize:none"></textarea>
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <div onClick="{{ closeSheet }}" style="cursor:pointer;flex:1;display:flex;align-items:center;justify-content:center;height:46px;border-radius:999px;border:1.5px solid #E9DDC4;color:#3A3437;font:700 13px 'Manrope',sans-serif">Cancel</div>
+        <div onClick="{{ confirmPromote }}" style="cursor:pointer;flex:1;display:flex;align-items:center;justify-content:center;height:46px;border-radius:999px;background:{{ promoteBtnBg }};color:#fff;font:700 13px 'Manrope',sans-serif">Confirm</div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- MEETING OUTCOME -->
+    <sc-if value="{{ showOutcome }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Meeting notes" style="position:relative;background:#FFFFFF;border-radius:20px 20px 0 0;padding:18px 20px 24px;animation:agSheetUp 220ms cubic-bezier(.2,.7,.2,1)">
+      <div style="width:36px;height:4px;border-radius:999px;background:#E9DDC4;margin:0 auto 14px"></div>
+      <div style="font:700 16px 'Poppins',sans-serif;color:#0B0B0C">How did it go?</div>
+      <div style="font:500 12px 'Manrope',sans-serif;color:rgba(11,11,12,.55);margin-top:2px">Marking meeting with <b style="color:#8E0E1E">{{ outcomeName }}</b> as completed</div>
+      <textarea value="{{ outcomeNotes }}" onChange="{{ onOutcomeNotes }}" placeholder="Quick notes — what did you talk about?" style="margin-top:14px;width:100%;box-sizing:border-box;height:84px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FBF5E9;padding:10px 12px;font:500 13px 'Manrope',sans-serif;color:#0B0B0C;resize:none"></textarea>
+      <div onClick="{{ saveOutcome }}" style="cursor:pointer;margin-top:14px;display:flex;align-items:center;justify-content:center;background:#3E7A4E;color:#fff;border-radius:999px;height:48px;font:700 14px 'Manrope',sans-serif">Mark completed</div>
+    </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+</div>
+</sc-if>
+
+<!-- ═══════════════════════ ADMIN (desktop) ═══════════════════════ -->
+<sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;min-height:calc(100vh - 48px);background:#FBF5E9">
+  <!-- sidebar -->
+  <div style="width:216px;flex:none;background:#0B0B0C;display:flex;flex-direction:column;padding:20px 0">
+    <div style="display:flex;align-items:center;gap:9px;padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.1)">
+      <img src="assets/logo-mark.png" alt="Quest Laguna" style="width:28px;height:28px;border-radius:999px;display:block">
+      <div>
+        <div style="font:700 14px 'Poppins',sans-serif;color:#fff;line-height:1.1">Agapay</div>
+        <div style="font:600 9.5px 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)">Admin</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;padding:14px 12px;gap:2px">
+      <div onClick="{{ apDash }}" style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:{{ navDashBg }};color:{{ navDashFg }};border-left:3px solid {{ navDashBd }}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg>
+        <span style="font:700 12.5px 'Manrope',sans-serif">Dashboard</span>
+      </div>
+      <div onClick="{{ apDisciples }}" style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:{{ navDiscBg }};color:{{ navDiscFg }};border-left:3px solid {{ navDiscBd }}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <span style="font:700 12.5px 'Manrope',sans-serif">Disciples</span>
+      </div>
+      <div onClick="{{ apChecklists }}" style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:{{ navChkBg }};color:{{ navChkFg }};border-left:3px solid {{ navChkBd }}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"></path><path d="m3.5 5.5 1 1 2-2M3.5 11.5l1 1 2-2M3.5 17.5l1 1 2-2"></path></svg>
+        <span style="font:700 12.5px 'Manrope',sans-serif">Checklists</span>
+      </div>
+    </div>
+    <div style="margin-top:auto;padding:16px 20px;border-top:1px solid rgba(255,255,255,.1)">
+      <div style="font:600 11px 'Manrope',sans-serif;color:rgba(255,255,255,.55)">Ptr. Dennis Ocampo</div>
+      <div style="font:600 9.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:2px">Quest Laguna leadership</div>
+    </div>
+  </div>
+
+  <!-- main -->
+  <div style="flex:1;overflow-y:auto;height:calc(100vh - 48px);box-sizing:border-box">
+
+    <!-- ── ADMIN DASHBOARD ── -->
+    <sc-if value="{{ showAdmDash }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Admin dashboard" style="padding:28px 32px 40px;max-width:1060px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <div>
+          <div style="font:700 24px 'Poppins',sans-serif;color:#0B0B0C;letter-spacing:-.01em">Dashboard</div>
+          <div style="font:500 13px 'Manrope',sans-serif;color:rgba(11,11,12,.55);margin-top:2px">{{ dashSub }}</div>
+        </div>
+        <select value="{{ cohort }}" onChange="{{ onCohort }}" style="height:42px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FFFFFF;padding:0 12px;font:600 12.5px 'Manrope',sans-serif;color:#0B0B0C">
+          <option value="all">All cohorts</option>
+          <option value="Q1 2026">Q1 2026 intake</option>
+          <option value="Q2 2026">Q2 2026 intake</option>
+          <option value="2025 Batch 2">2025 Batch 2</option>
+        </select>
+      </div>
+
+      <!-- funnel -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:22px">
+        <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="3">
+          <div style="background:#FFFFFF;border-radius:16px;padding:18px 20px;box-shadow:0 8px 24px rgba(0,0,0,.06);border-top:4px solid {{ f.bar }}">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span style="font:700 9.5px 'Manrope',sans-serif;letter-spacing:.06em;text-transform:uppercase;background:{{ f.bg }};color:{{ f.fg }};border-radius:999px;padding:4px 10px">{{ f.label }}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(11,11,12,.25)" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg>
+            </div>
+            <div style="font:800 36px 'Poppins',sans-serif;color:#0B0B0C;margin-top:10px;line-height:1">{{ f.count }}</div>
+            <div style="font:500 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.5);margin-top:6px">{{ f.sub }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-top:14px;align-items:start">
+        <!-- at-risk list -->
+        <div style="background:#FFFFFF;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);overflow:hidden">
+          <div style="padding:16px 20px 12px;display:flex;align-items:baseline;justify-content:space-between">
+            <span style="font:700 14px 'Poppins',sans-serif;color:#0B0B0C">At-risk disciples</span>
+            <span style="font:600 11px 'Manrope',sans-serif;color:rgba(11,11,12,.45)">{{ atRiskCount }} across all disciplers</span>
+          </div>
+          <sc-for list="{{ atRiskRows }}" as="r" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 20px;border-top:1px solid #F4ECDC">
+              <div style="width:36px;height:36px;border-radius:999px;background:{{ r.avBg }};display:flex;align-items:center;justify-content:center;font:700 11px 'Poppins',sans-serif;color:{{ r.avFg }};flex:none">{{ r.initials }}</div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span style="font:700 13px 'Poppins',sans-serif;color:#0B0B0C">{{ r.name }}</span>
+                  <span style="font:700 8.5px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:{{ r.stageBg }};color:{{ r.stageFg }};border-radius:999px;padding:3px 7px">{{ r.stage }}</span>
+                </div>
+                <div style="font:500 11px 'Manrope',sans-serif;color:rgba(11,11,12,.5);margin-top:2px">{{ r.sub }}</div>
+              </div>
+              <span style="font:700 10px 'Manrope',sans-serif;background:{{ r.engBg }};color:{{ r.engFg }};border-radius:999px;padding:4px 10px;flex:none">{{ r.days }} days</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- discipler load -->
+        <div style="background:#FFFFFF;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);overflow:hidden">
+          <div style="padding:16px 20px 12px">
+            <span style="font:700 14px 'Poppins',sans-serif;color:#0B0B0C">Discipler load</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:4px 14px;padding:0 20px 8px;font:700 9.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.4)">
+            <span>Discipler</span><span style="text-align:right">Load</span><span style="text-align:right">Last log</span>
+          </div>
+          <sc-for list="{{ loadRows }}" as="r" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:4px 14px;align-items:center;padding:10px 20px;border-top:1px solid #F4ECDC">
+              <div style="display:flex;align-items:center;gap:8px;min-width:0">
+                <span style="font:700 12.5px 'Poppins',sans-serif;color:#0B0B0C">{{ r.name }}</span>
+                <sc-if value="{{ r.inactive }}" hint-placeholder-val="{{ false }}">
+                  <span style="font:700 8.5px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:#FDE4E7;color:#8E0E1E;border-radius:999px;padding:3px 7px">Inactive</span>
+                </sc-if>
+              </div>
+              <span style="font:700 12px 'Manrope',sans-serif;color:#0B0B0C;text-align:right">{{ r.load }}</span>
+              <span style="font:600 11.5px 'Manrope',sans-serif;color:{{ r.lastC }};text-align:right">{{ r.last }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ── ADMIN DISCIPLES LIST ── -->
+    <sc-if value="{{ showAdmDisc }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Admin disciples list" style="padding:28px 32px 40px;max-width:1060px">
+      <div style="font:700 24px 'Poppins',sans-serif;color:#0B0B0C;letter-spacing:-.01em">Disciples</div>
+      <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+        <input type="text" value="{{ fSearch }}" onChange="{{ onFSearch }}" placeholder="Search name…" style="height:40px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FFFFFF;padding:0 12px;font:600 12.5px 'Manrope',sans-serif;color:#0B0B0C;width:180px">
+        <select value="{{ fStage }}" onChange="{{ onFStage }}" style="height:40px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FFFFFF;padding:0 10px;font:600 12.5px 'Manrope',sans-serif;color:#0B0B0C">
+          <option value="all">All stages</option><option value="New Believer">New Believer</option><option value="Growing">Growing</option><option value="Leader">Leader</option>
+        </select>
+        <select value="{{ fEng }}" onChange="{{ onFEng }}" style="height:40px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FFFFFF;padding:0 10px;font:600 12.5px 'Manrope',sans-serif;color:#0B0B0C">
+          <option value="all">All engagement</option><option value="green">Healthy</option><option value="amber">Cooling</option><option value="red">At-risk</option>
+        </select>
+        <select value="{{ fDisc }}" onChange="{{ onFDisc }}" style="height:40px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FFFFFF;padding:0 10px;font:600 12.5px 'Manrope',sans-serif;color:#0B0B0C">
+          <option value="all">All disciplers</option><option value="Marco Reyes">Marco Reyes</option><option value="Ana Lim">Ana Lim</option><option value="Joseph Tan">Joseph Tan</option><option value="Ruth Navarro">Ruth Navarro</option>
+        </select>
+        <select value="{{ fCohort }}" onChange="{{ onFCohort }}" style="height:40px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FFFFFF;padding:0 10px;font:600 12.5px 'Manrope',sans-serif;color:#0B0B0C">
+          <option value="all">All cohorts</option><option value="Q1 2026">Q1 2026</option><option value="Q2 2026">Q2 2026</option><option value="2025 Batch 2">2025 Batch 2</option>
+        </select>
+      </div>
+
+      <sc-if value="{{ hasSelection }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:12px;margin-top:14px;background:#0B0B0C;border-radius:14px;padding:10px 16px">
+        <span style="font:700 12.5px 'Manrope',sans-serif;color:#fff">{{ selLabel }}</span>
+        <span style="font:600 12px 'Manrope',sans-serif;color:rgba(255,255,255,.6);margin-left:auto">Reassign to</span>
+        <select value="{{ reassignTo }}" onChange="{{ onReassignTo }}" style="height:36px;border-radius:10px;border:none;background:rgba(255,255,255,.12);padding:0 10px;font:600 12px 'Manrope',sans-serif;color:#fff">
+          <option value="Marco Reyes">Marco Reyes</option><option value="Ana Lim">Ana Lim</option><option value="Joseph Tan">Joseph Tan</option><option value="Ruth Navarro">Ruth Navarro</option>
+        </select>
+        <div onClick="{{ applyReassign }}" style="cursor:pointer;background:#D81E2F;color:#fff;border-radius:999px;height:36px;display:flex;align-items:center;padding:0 16px;font:700 12px 'Manrope',sans-serif">Apply</div>
+      </div>
+      </sc-if>
+
+      <div style="background:#FFFFFF;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);overflow:hidden;margin-top:14px">
+        <div style="display:grid;grid-template-columns:36px 1.5fr 1fr 1fr 0.9fr 0.9fr 0.9fr;gap:8px;padding:12px 18px;font:700 9.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,12,.4);border-bottom:1px solid #F4ECDC">
+          <span></span><span>Name</span><span>Stage</span><span>Discipler</span><span>Engagement</span><span>Last activity</span><span>Checklist</span>
+        </div>
+        <sc-for list="{{ tableRows }}" as="r" hint-placeholder-count="8">
+          <div style="display:grid;grid-template-columns:36px 1.5fr 1fr 1fr 0.9fr 0.9fr 0.9fr;gap:8px;align-items:center;padding:11px 18px;border-bottom:1px solid #F4ECDC;background:{{ r.rowBg }}">
+            <input type="checkbox" checked="{{ r.selected }}" onChange="{{ r.toggleSel }}" style="width:16px;height:16px;accent-color:#D81E2F;cursor:pointer">
+            <span style="font:700 13px 'Poppins',sans-serif;color:#0B0B0C">{{ r.name }}</span>
+            <span><span style="font:700 8.5px 'Manrope',sans-serif;letter-spacing:.05em;text-transform:uppercase;background:{{ r.stageBg }};color:{{ r.stageFg }};border-radius:999px;padding:3px 8px">{{ r.stage }}</span></span>
+            <span style="font:600 12px 'Manrope',sans-serif;color:rgba(11,11,12,.65)">{{ r.discipler }}</span>
+            <span style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:999px;background:{{ r.engDot }}"></span><span style="font:600 11.5px 'Manrope',sans-serif;color:rgba(11,11,12,.6)">{{ r.engLabel }}</span></span>
+            <span style="font:600 12px 'Manrope',sans-serif;color:rgba(11,11,12,.6)">{{ r.lastLabel }}</span>
+            <span style="display:flex;align-items:center;gap:8px">
+              <span style="flex:1;height:5px;border-radius:999px;background:#F4ECDC;overflow:hidden;display:block"><span style="display:block;height:100%;border-radius:999px;background:#D81E2F;width:{{ r.chkW }}"></span></span>
+              <span style="font:700 11px 'Manrope',sans-serif;color:rgba(11,11,12,.55);width:32px;text-align:right">{{ r.chkPct }}</span>
+            </span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ── ADMIN CHECKLISTS ── -->
+    <sc-if value="{{ showAdmChk }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Checklist management" style="padding:28px 32px 40px;max-width:720px">
+      <div style="font:700 24px 'Poppins',sans-serif;color:#0B0B0C;letter-spacing:-.01em">Checklists</div>
+      <div style="font:500 13px 'Manrope',sans-serif;color:rgba(11,11,12,.55);margin-top:2px">What each disciple walks through per stage. Drag to reorder.</div>
+      <div style="display:flex;gap:6px;margin-top:18px">
+        <sc-for list="{{ chkStageTabs }}" as="t" hint-placeholder-count="3">
+          <div onClick="{{ t.pick }}" style="cursor:pointer;font:700 12px 'Manrope',sans-serif;padding:9px 16px;border-radius:999px;background:{{ t.bg }};color:{{ t.fg }};border:1.5px solid #E9DDC4">{{ t.label }}</div>
+        </sc-for>
+      </div>
+      <div style="background:#FFFFFF;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);overflow:hidden;margin-top:14px">
+        <sc-for list="{{ chkItems }}" as="it" hint-placeholder-count="5">
+          <div draggable="true" onDragStart="{{ it.dragStart }}" onDragOver="{{ it.dragOver }}" onDrop="{{ it.drop }}" style="display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid #F4ECDC;background:{{ it.bg }};cursor:grab">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(11,11,12,.3)" stroke-width="2.4" stroke-linecap="round"><path d="M4 8h16M4 16h16"></path></svg>
+            <span style="font:700 11px 'Manrope',sans-serif;color:rgba(11,11,12,.35);width:18px">{{ it.n }}</span>
+            <span style="flex:1;font:600 13.5px 'Manrope',sans-serif;color:#0B0B0C">{{ it.t }}</span>
+            <div onClick="{{ it.del }}" style="cursor:pointer;width:32px;height:32px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:rgba(11,11,12,.35)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path></svg>
+            </div>
+          </div>
+        </sc-for>
+        <div style="display:flex;gap:8px;padding:14px 18px;background:#FBF5E9">
+          <input type="text" value="{{ newItem }}" onChange="{{ onNewItem }}" placeholder="Add a checklist item…" style="flex:1;height:42px;border-radius:12px;border:1.5px solid #E9DDC4;background:#FFFFFF;padding:0 12px;font:600 13px 'Manrope',sans-serif;color:#0B0B0C;box-sizing:border-box">
+          <div onClick="{{ addItem }}" style="cursor:pointer;background:#D81E2F;color:#fff;border-radius:999px;height:42px;display:flex;align-items:center;gap:6px;padding:0 18px;font:700 12.5px 'Manrope',sans-serif">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Add</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+  </div>
+</div>
+</sc-if>
+
+<!-- toast -->
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:100;background:#0B0B0C;color:#fff;border-radius:999px;padding:12px 22px;font:700 13px 'Manrope',sans-serif;box-shadow:0 18px 40px rgba(0,0,0,.35);animation:agSheetUp 200ms cubic-bezier(.2,.7,.2,1);max-width:80%;text-align:center">{{ toast }}</div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;amberAfterDays&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:14,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:3,&quot;max&quot;:30,&quot;unit&quot;:&quot;days&quot;,&quot;section&quot;:&quot;Engagement rules&quot;},&quot;redAfterDays&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:28,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:7,&quot;max&quot;:90,&quot;unit&quot;:&quot;days&quot;,&quot;section&quot;:&quot;Engagement rules&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const NB = 'New Believer', GR = 'Growing', LD = 'Leader';
+    const masterChk = {
+      [NB]: ['Water baptism', 'Complete One2One sessions (4)', 'Attend Sunday service 4 weeks in a row', 'Join a Life Group', 'Receive first Bible', 'Share testimony in Life Group'],
+      [GR]: ['Complete Victory Weekend', 'Serve in a ministry', 'Build a daily devotion habit', 'Complete doctrine classes', 'Lead prayer in Life Group'],
+      [LD]: ['Complete leadership training', 'Facilitate a Life Group', 'Begin discipling someone one-on-one', 'Complete School of Discipleship']
+    };
+    const mkChk = (stage, doneCount) => masterChk[stage].map((t, i) => ({ t, done: i < doneCount }));
+    const defTimeline = (name) => ([
+      { k: 'activity', t: 'Sunday service attendance', d: 'Jul 6', note: '' },
+      { k: 'meeting', t: 'One-on-one', d: 'Jun 24', note: 'Good conversation about consistency.' },
+      { k: 'stage', t: 'Joined Agapay', d: 'Apr 2026', note: '' }
+    ]);
+    const defMs = [
+      { t: 'Salvation decision', d: 'Mar 2026' },
+      { t: 'First Life Group', d: 'Apr 2026' },
+      { t: 'Water baptism', d: null },
+      { t: 'First serve', d: null }
+    ];
+    const mk = (id, name, stage, days, doneCount, discipler, cohort, extra) => Object.assign({
+      id, name, stage, days, discipler, cohort,
+      inStage: '3 months', lastSeen: 'Sunday service',
+      attend: [1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1],
+      checklist: mkChk(stage, doneCount),
+      milestones: defMs, timeline: defTimeline(name)
+    }, extra || {});
+    const M = 'Marco Reyes', A = 'Ana Lim', J = 'Joseph Tan', R = 'Ruth Navarro';
+    const disciples = [
+      mk('d1', 'Jomar Dela Cruz', NB, 32, 2, M, 'Q2 2026', {
+        inStage: '2 months', lastSeen: 'Life Group, Jun 8',
+        attend: [1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+        milestones: [{ t: 'Salvation decision', d: 'Apr 12, 2026' }, { t: 'First Life Group', d: 'May 2, 2026' }, { t: 'Water baptism', d: null }, { t: 'First serve', d: null }],
+        timeline: [
+          { k: 'note', t: 'Note added', d: 'Jun 8', note: 'Busy season at work — check in mid-July.' },
+          { k: 'activity', t: 'Life Group attendance', d: 'Jun 8', note: '' },
+          { k: 'meeting', t: 'One2One session 2', d: 'May 28', note: 'Talked through doubts about prayer.' },
+          { k: 'check', t: 'Checklist: Joined a Life Group', d: 'May 2', note: '' },
+          { k: 'stage', t: 'Started as New Believer', d: 'Apr 12', note: '' }
+        ]
+      }),
+      mk('d2', 'Kristine Bautista', GR, 16, 3, M, 'Q1 2026', { inStage: '4 months', lastSeen: 'One2One, Jun 24' }),
+      mk('d3', 'Aldrin Santos', NB, 15, 1, M, 'Q2 2026', { inStage: '6 weeks', lastSeen: 'Sunday service, Jun 25' }),
+      mk('d4', 'Grace Villanueva', GR, 4, 4, M, 'Q1 2026', { inStage: '5 months', lastSeen: 'Life Group, Jul 6' }),
+      mk('d5', 'Mika Ramos', LD, 2, 3, M, '2025 Batch 2', { inStage: '3 months', lastSeen: 'Prayer meeting, Jul 8' }),
+      mk('d6', 'Paolo Torres', GR, 6, 2, M, 'Q1 2026', { lastSeen: 'Sunday service, Jul 4' }),
+      mk('d7', 'Lea Garcia', NB, 5, 3, M, 'Q2 2026', { inStage: '2 months', lastSeen: 'Life Group, Jul 5' }),
+      mk('d8', 'Dan Mercado', LD, 7, 2, M, '2025 Batch 2', { lastSeen: 'One-on-one, Jul 3' }),
+      mk('d9', 'Carlo Mendoza', NB, 8, 2, A, 'Q2 2026'),
+      mk('d10', 'Joy Salazar', GR, 3, 4, A, 'Q1 2026'),
+      mk('d11', 'Miguel Ocampo', GR, 12, 3, A, 'Q1 2026'),
+      mk('d12', 'Trisha Robles', NB, 17, 1, A, 'Q2 2026'),
+      mk('d13', 'Ben Aquino', GR, 6, 2, A, '2025 Batch 2'),
+      mk('d14', 'Faith Dizon', LD, 4, 3, A, '2025 Batch 2'),
+      mk('d15', 'Ramon Cruz', NB, 25, 1, J, 'Q2 2026'),
+      mk('d16', 'Ella Marquez', GR, 31, 2, J, 'Q1 2026'),
+      mk('d17', 'Noel Bagtas', LD, 35, 1, J, '2025 Batch 2'),
+      mk('d18', 'Cindy Flores', NB, 19, 2, J, 'Q2 2026'),
+      mk('d19', 'Jake Villar', GR, 9, 3, J, 'Q1 2026'),
+      mk('d20', 'Sofia Reyes', NB, 6, 2, R, 'Q2 2026'),
+      mk('d21', 'Marvin Lopez', GR, 11, 3, R, 'Q1 2026'),
+      mk('d22', 'Diane Cua', NB, 13, 1, R, 'Q2 2026'),
+      mk('d23', 'Leo Pangan', GR, 5, 4, R, '2025 Batch 2')
+    ];
+    const meetings = [
+      { id: 'm1', who: 'd1', dow: 'THU', day: '10', time: '7:00 PM', place: 'Kape Kada, Calamba', mode: 'inperson', status: 'upcoming' },
+      { id: 'm2', who: 'd2', dow: 'SAT', day: '12', time: '4:00 PM', place: 'Google Meet', mode: 'online', status: 'upcoming' },
+      { id: 'm3', who: 'd4', dow: 'SUN', day: '13', time: '11:30 AM', place: 'Quest Laguna', mode: 'inperson', status: 'upcoming' },
+      { id: 'm4', who: 'd5', dow: 'SAT', day: 'Jun 28', time: '3:00 PM', place: 'Quest Laguna', mode: 'inperson', status: 'completed', note: 'Planned her first Life Group facilitation.' },
+      { id: 'm5', who: 'd1', dow: 'SAT', day: 'Jun 21', time: '10:00 AM', place: 'Kape Kada, Calamba', mode: 'inperson', status: 'noshow', note: '' },
+      { id: 'm6', who: 'd3', dow: 'SUN', day: 'Jun 15', time: '11:30 AM', place: 'Quest Laguna', mode: 'inperson', status: 'completed', note: 'Set his baptism class schedule.' }
+    ];
+    this.state = {
+      role: 'discipler', tab: 'home', muTab: 'upcoming',
+      profileId: null, pTab: 'timeline',
+      sheet: null, sheetId: null,
+      logType: 'One-on-one', logDate: '2026-07-10', logNotes: '',
+      schedWho: 'd1', schedDate: '2026-07-14', schedTime: '19:00', schedDur: 60, schedMode: 'inperson', schedLoc: '', schedRec: 'none',
+      promoteNote: '', outcomeNotes: '', outcomeMeetingId: null,
+      adminPage: 'dashboard', cohort: 'all',
+      fStage: 'all', fEng: 'all', fDisc: 'all', fCohort: 'all', fSearch: '',
+      sel: {}, reassignTo: 'Ana Lim',
+      chkStage: NB, newItem: '', dragIdx: null,
+      toast: null,
+      disciples, meetings, masterChk
+    };
+  }
+
+  toast(msg) {
+    clearTimeout(this._tt);
+    this.setState({ toast: msg });
+    this._tt = setTimeout(() => this.setState({ toast: null }), 2400);
+  }
+  amber() { return this.props.amberAfterDays ?? 14; }
+  red() { return this.props.redAfterDays ?? 28; }
+  eng(days) {
+    if (days > this.red()) return { key: 'red', dot: '#D81E2F', bg: '#FDE4E7', fg: '#8E0E1E', label: 'At-risk' };
+    if (days > this.amber()) return { key: 'amber', dot: '#C28E0A', bg: '#F8ECD2', fg: '#9A7208', label: 'Cooling' };
+    return { key: 'green', dot: '#3E7A4E', bg: '#E4EFE0', fg: '#3E7A4E', label: 'Healthy' };
+  }
+  stagePill(stage) {
+    if (stage === 'New Believer') return { bg: '#FDE4E7', fg: '#8E0E1E' };
+    if (stage === 'Growing') return { bg: '#FBEAB3', fg: '#7A5A06' };
+    return { bg: '#E6E1E3', fg: '#3A3437' };
+  }
+  initials(name) { const p = name.split(' '); return (p[0][0] + p[p.length - 1][0]).toUpperCase(); }
+  find(id) { return this.state.disciples.find(d => d.id === id); }
+  chkPct(d) { const c = d.checklist; const n = c.filter(i => i.done).length; return Math.round(100 * n / c.length); }
+  daysLabel(days) {
+    if (days === 0) return 'Today';
+    if (days === 1) return 'Yesterday';
+    return days + ' days ago';
+  }
+  nextStage(s) { return s === 'New Believer' ? 'Growing' : s === 'Growing' ? 'Leader' : null; }
+
+  update(fn) { this.setState(s => { const c = JSON.parse(JSON.stringify({ disciples: s.disciples, meetings: s.meetings, masterChk: s.masterChk })); fn(c, s); return c; }); }
+
+  renderVals() {
+    const S = this.state;
+    const marco = S.disciples.filter(d => d.discipler === 'Marco Reyes');
+    const amberT = this.amber(), redT = this.red();
+    const openProfile = (id) => () => this.setState({ profileId: id, pTab: 'timeline' });
+    const openLog = (id) => () => this.setState({ sheet: 'log', sheetId: id, logType: 'One-on-one', logNotes: '', logDate: '2026-07-10' });
+    const openSched = (id) => () => this.setState({ sheet: 'sched', schedWho: id || 'd1', schedLoc: '' });
+    const rowBase = (d) => {
+      const e = this.eng(d.days), sp = this.stagePill(d.stage);
+      return {
+        id: d.id, name: d.name, initials: this.initials(d.name),
+        avBg: sp.bg, avFg: sp.fg, stage: d.stage, stageBg: sp.bg, stageFg: sp.fg,
+        engDot: e.dot, engBg: e.bg, engFg: e.fg, engLabel: e.label, days: d.days,
+        open: openProfile(d.id), log: openLog(d.id), sched: openSched(d.id)
+      };
+    };
+
+    // home queue
+    const quiet = marco.filter(d => d.days > redT).sort((a, b) => b.days - a.days);
+    const cooling = marco.filter(d => d.days > amberT && d.days <= redT).sort((a, b) => b.days - a.days);
+    const steady = marco.filter(d => d.days <= amberT);
+    const queue = quiet.length + cooling.length;
+    const done = marco.length - queue;
+    const frac = marco.length ? done / marco.length : 1;
+    const quietRows = quiet.map(d => Object.assign(rowBase(d), {
+      blurb: 'No activity in ' + d.days + ' days. Last seen: ' + d.lastSeen + '. A quick check-in goes a long way.'
+    }));
+    const coolingRows = cooling.map(d => Object.assign(rowBase(d), {
+      meta: d.stage + ' \u00b7 ' + d.days + ' days since last activity'
+    }));
+    const steadyAvs = steady.map((d, i) => ({ initials: this.initials(d.name), ml: i === 0 ? '0' : '-8px', open: openProfile(d.id) }));
+
+    const upcoming = S.meetings.filter(m => m.status === 'upcoming');
+    const meetRow = (m) => {
+      const d = this.find(m.who);
+      return {
+        dow: m.dow, day: m.day, name: d ? d.name : '', sub: m.time + ' \u00b7 ' + m.place,
+        modeLabel: m.mode === 'online' ? 'Online' : 'In-person',
+        complete: () => this.setState({ sheet: 'outcome', outcomeMeetingId: m.id, outcomeNotes: '' }),
+        cancel: () => { this.update(c => { c.meetings.find(x => x.id === m.id).status = 'cancelled'; }); this.toast('Meeting cancelled'); },
+        noshow: () => { this.update(c => { c.meetings.find(x => x.id === m.id).status = 'noshow'; }); this.toast('Marked as no-show \u2014 maybe try a different day?'); }
+      };
+    };
+    const stChip = (st) => st === 'completed' ? { stLabel: 'Completed', stBg: '#E4EFE0', stFg: '#3E7A4E' }
+      : st === 'cancelled' ? { stLabel: 'Cancelled', stBg: '#E6E1E3', stFg: '#3A3437' }
+        : { stLabel: 'No-show', stBg: '#F8ECD2', stFg: '#9A7208' };
+    const pastRows = S.meetings.filter(m => m.status !== 'upcoming').map(m => {
+      const d = this.find(m.who);
+      return Object.assign({
+        name: d ? d.name : '', sub: m.day + ' \u00b7 ' + m.time + ' \u00b7 ' + m.place,
+        hasNote: !!m.note, note: m.note || ''
+      }, stChip(m.status));
+    });
+
+    // profile
+    const pd = S.profileId ? this.find(S.profileId) : null;
+    let p = { timeline: [], checklist: [], milestones: [], bars: [], meetRows: [] };
+    if (pd) {
+      const e = this.eng(pd.days), sp = this.stagePill(pd.stage);
+      const ns = this.nextStage(pd.stage);
+      const nsp = ns ? this.stagePill(ns) : sp;
+      const attended = pd.attend.filter(x => x).length;
+      const glyphs = { activity: '\u25cf', meeting: 'M', note: 'N', check: '\u2713', stage: '\u2605' };
+      const iconC = { activity: ['#E4EFE0', '#3E7A4E'], meeting: ['#FDE4E7', '#8E0E1E'], note: ['#F4ECDC', '#6B6266'], check: ['#E4EFE0', '#3E7A4E'], stage: ['#FBEAB3', '#7A5A06'] };
+      const pct = this.chkPct(pd);
+      p = {
+        first: pd.name.split(' ')[0], name: pd.name, initials: this.initials(pd.name),
+        avBg: sp.bg, avFg: sp.fg, stage: pd.stage, stageBg: sp.bg, stageFg: sp.fg,
+        engBg: e.bg, engFg: e.fg, engLabel: e.label, inStage: pd.inStage,
+        canPromote: !!ns, nextStage: ns || '', nextBg: nsp.bg, nextFg: nsp.fg,
+        attendLabel: attended + ' of 12 Sundays',
+        bars: pd.attend.map(a => ({ h: a ? '26px' : '6px', c: a ? '#3E7A4E' : '#E9DDC4' })),
+        chkPct: pct + '%', chkW: pct + '%',
+        checklist: pd.checklist.map((it, i) => ({
+          t: it.t, done: it.done,
+          boxBg: it.done ? '#D81E2F' : '#FFFFFF', boxBd: it.done ? '#D81E2F' : '#E9DDC4',
+          txtC: it.done ? 'rgba(11,11,12,.4)' : '#0B0B0C', deco: it.done ? 'line-through' : 'none',
+          toggle: () => { this.update(c => { const x = c.disciples.find(d => d.id === pd.id).checklist[i]; x.done = !x.done; }); }
+        })),
+        timeline: pd.timeline.map(ev => ({
+          t: ev.t, d: ev.d, note: ev.note || '', hasNote: !!ev.note,
+          glyph: glyphs[ev.k] || '\u25cf', iconBg: (iconC[ev.k] || iconC.activity)[0], iconFg: (iconC[ev.k] || iconC.activity)[1]
+        })),
+        meetRows: S.meetings.filter(m => m.who === pd.id).map(m => Object.assign({
+          title: (m.status === 'upcoming' ? 'Upcoming \u2014 ' : '') + m.dow + ' ' + m.day + ', ' + m.time,
+          sub: m.place + (m.note ? ' \u00b7 \u201c' + m.note + '\u201d' : '')
+        }, m.status === 'upcoming' ? { stLabel: 'Upcoming', stBg: '#FDE4E7', stFg: '#8E0E1E' } : stChip(m.status))),
+        milestones: pd.milestones.map(ms => ({
+          t: ms.t, d: ms.d || 'Not yet', dC: ms.d ? 'rgba(11,11,12,.55)' : '#C28E0A',
+          discBg: ms.d ? '#E4EFE0' : '#F4ECDC', discFg: ms.d ? '#3E7A4E' : '#B1A8AB'
+        }))
+      };
+    }
+
+    // sheets
+    const sheetD = S.sheetId ? this.find(S.sheetId) : null;
+    const logTypes = ['One-on-one', 'Life Group', 'Sunday Service', 'Prayer Meeting', 'Note'];
+    const chip = (t, sel, pick) => ({
+      t, pick, bg: sel ? '#D81E2F' : '#FFFFFF', fg: sel ? '#FFFFFF' : '#3A3437', bd: sel ? '#D81E2F' : '#E9DDC4'
+    });
+    const durVals = [30, 45, 60, 90];
+    const recVals = [['none', 'None'], ['weekly', 'Weekly'], ['biweekly', 'Biweekly']];
+
+    // admin
+    const inCohort = (d) => S.cohort === 'all' || d.cohort === S.cohort;
+    const pool = S.disciples.filter(inCohort);
+    const stages = ['New Believer', 'Growing', 'Leader'];
+    const stageBar = { 'New Believer': '#D81E2F', 'Growing': '#E8B11F', 'Leader': '#3A3437' };
+    const funnel = stages.map(st => {
+      const g = pool.filter(d => d.stage === st);
+      const avg = g.length ? Math.round(g.reduce((a, d) => a + this.chkPct(d), 0) / g.length) : 0;
+      const sp = this.stagePill(st);
+      return { label: st, count: g.length, bar: stageBar[st], bg: sp.bg, fg: sp.fg, sub: 'avg checklist ' + avg + '%' };
+    });
+    const atRisk = pool.filter(d => d.days > amberT).sort((a, b) => b.days - a.days);
+    const atRiskRows = atRisk.map(d => Object.assign(rowBase(d), { sub: d.discipler + ' \u00b7 ' + d.cohort }));
+    const disciplers = ['Marco Reyes', 'Ana Lim', 'Joseph Tan', 'Ruth Navarro'];
+    const lastLogByDiscipler = { 'Marco Reyes': 0, 'Ana Lim': 2, 'Joseph Tan': 21, 'Ruth Navarro': 5 };
+    const loadRows = disciplers.map(name => {
+      const g = S.disciples.filter(d => d.discipler === name);
+      const last = lastLogByDiscipler[name] ?? (g.length ? Math.min(...g.map(d => d.days)) : 99);
+      return {
+        name, load: g.length + '', last: this.daysLabel(last),
+        lastC: last > amberT ? '#D81E2F' : 'rgba(11,11,12,.55)', inactive: last > amberT
+      };
+    });
+
+    // admin table
+    const q = S.fSearch.trim().toLowerCase();
+    const tbl = S.disciples.filter(d =>
+      (S.fStage === 'all' || d.stage === S.fStage) &&
+      (S.fEng === 'all' || this.eng(d.days).key === S.fEng) &&
+      (S.fDisc === 'all' || d.discipler === S.fDisc) &&
+      (S.fCohort === 'all' || d.cohort === S.fCohort) &&
+      (!q || d.name.toLowerCase().includes(q))
+    );
+    const tableRows = tbl.map(d => {
+      const b = rowBase(d);
+      const pct = this.chkPct(d);
+      return Object.assign(b, {
+        discipler: d.discipler, lastLabel: this.daysLabel(d.days),
+        chkPct: pct + '%', chkW: pct + '%',
+        selected: !!S.sel[d.id], rowBg: S.sel[d.id] ? '#FDE4E7' : '#FFFFFF',
+        toggleSel: () => this.setState(s => ({ sel: Object.assign({}, s.sel, { [d.id]: !s.sel[d.id] }) }))
+      });
+    });
+    const selIds = Object.keys(S.sel).filter(k => S.sel[k]);
+
+    // checklist mgmt
+    const chkItems = S.masterChk[S.chkStage].map((t, i) => ({
+      t, n: (i + 1) + '', bg: S.dragIdx === i ? '#FDE4E7' : '#FFFFFF',
+      dragStart: () => this.setState({ dragIdx: i }),
+      dragOver: (e) => e.preventDefault(),
+      drop: () => {
+        const from = this.state.dragIdx;
+        if (from === null || from === i) { this.setState({ dragIdx: null }); return; }
+        this.update((c, s) => {
+          const arr = c.masterChk[s.chkStage];
+          const [moved] = arr.splice(from, 1);
+          arr.splice(i, 0, moved);
+        });
+        this.setState({ dragIdx: null });
+      },
+      del: () => { this.update((c, s) => { c.masterChk[s.chkStage].splice(i, 1); }); this.toast('Item removed'); }
+    }));
+
+    const setS = (k) => (e) => this.setState({ [k]: e.target.value });
+    const active = (on) => on ? { bg: '#0B0B0C', fg: '#FFFFFF' } : { bg: '#FFFFFF', fg: '#3A3437' };
+    const tHome = S.tab === 'home', tDisc = S.tab === 'disciples', tMeet = S.tab === 'meetings';
+
+    return {
+      // role bar
+      isDiscipler: S.role === 'discipler', isAdmin: S.role === 'admin',
+      toDiscipler: () => this.setState({ role: 'discipler' }),
+      toAdmin: () => this.setState({ role: 'admin' }),
+      roleBtnDiscBg: S.role === 'discipler' ? '#D81E2F' : 'rgba(255,255,255,.1)',
+      roleBtnDiscFg: '#fff',
+      roleBtnAdmBg: S.role === 'admin' ? '#D81E2F' : 'rgba(255,255,255,.1)',
+      roleBtnAdmFg: '#fff',
+
+      // nav
+      showHome: tHome, showDiscTab: tDisc, showMeetTab: tMeet,
+      goHome: () => this.setState({ tab: 'home', profileId: null }),
+      goDisciples: () => this.setState({ tab: 'disciples', profileId: null }),
+      goMeetings: () => this.setState({ tab: 'meetings', profileId: null }),
+      tabHomeC: tHome ? '#D81E2F' : 'rgba(11,11,12,.45)',
+      tabDiscC: tDisc ? '#D81E2F' : 'rgba(11,11,12,.45)',
+      tabMeetC: tMeet ? '#D81E2F' : 'rgba(11,11,12,.45)',
+
+      // home
+      queueCount: queue, ringDash: Math.max(4, Math.round(frac * 169.6)) + ' 169.6',
+      homeTitle: queue === 0 ? 'All caught up!' : queue + (queue === 1 ? ' check-in to go' : ' check-ins to go'),
+      homeSub: queue === 0 ? 'Every disciple has been walked with recently.' : "You've checked in with " + done + ' of ' + marco.length + ' disciples recently. Keep going!',
+      chipTotal: marco.length + ' disciples',
+      chipRisk: quiet.length + ' at-risk',
+      chipMeet: upcoming.length + ' meetings this week',
+      hasQuiet: quiet.length > 0, hasCooling: cooling.length > 0, queueEmpty: queue === 0,
+      quietRows, coolingRows, steadyAvs, steadyCount: steady.length + ' disciples',
+      weekRows: upcoming.map(meetRow),
+
+      // disciples tab
+      myRows: marco.map(d => {
+        const b = rowBase(d); const pct = this.chkPct(d);
+        return Object.assign(b, { meta: this.eng(d.days).label + ' \u00b7 last activity ' + this.daysLabel(d.days).toLowerCase(), chkPct: pct + '%', chkW: pct + '%' });
+      }),
+      myCountLabel: marco.length + ' assigned to you',
+
+      // meetings tab
+      muUpcoming: () => this.setState({ muTab: 'upcoming' }),
+      muPast: () => this.setState({ muTab: 'past' }),
+      muUpBg: active(S.muTab === 'upcoming').bg, muUpFg: active(S.muTab === 'upcoming').fg,
+      muPastBg: active(S.muTab === 'past').bg, muPastFg: active(S.muTab === 'past').fg,
+      showUpcoming: S.muTab === 'upcoming', showPast: S.muTab === 'past',
+      upcomingRows: upcoming.map(meetRow), pastRows,
+      openSchedBlank: openSched(null),
+
+      // profile
+      showProfile: !!pd, closeProfile: () => this.setState({ profileId: null }),
+      p,
+      pTabTimeline: () => this.setState({ pTab: 'timeline' }),
+      pTabChecklist: () => this.setState({ pTab: 'checklist' }),
+      pTabMeetings: () => this.setState({ pTab: 'meetings' }),
+      pTabMilestones: () => this.setState({ pTab: 'milestones' }),
+      ptTlBg: active(S.pTab === 'timeline').bg, ptTlFg: active(S.pTab === 'timeline').fg,
+      ptCkBg: active(S.pTab === 'checklist').bg, ptCkFg: active(S.pTab === 'checklist').fg,
+      ptMtBg: active(S.pTab === 'meetings').bg, ptMtFg: active(S.pTab === 'meetings').fg,
+      ptMsBg: active(S.pTab === 'milestones').bg, ptMsFg: active(S.pTab === 'milestones').fg,
+      showPTimeline: S.pTab === 'timeline', showPChecklist: S.pTab === 'checklist',
+      showPMeetings: S.pTab === 'meetings', showPMilestones: S.pTab === 'milestones',
+      openLogFromProfile: openLog(S.profileId),
+      openSchedFromProfile: openSched(S.profileId),
+      openPromote: () => this.setState({ sheet: 'promote', promoteNote: '' }),
+
+      // sheets
+      anySheet: !!S.sheet,
+      showLogSheet: S.sheet === 'log', showSchedSheet: S.sheet === 'sched',
+      showPromote: S.sheet === 'promote', showOutcome: S.sheet === 'outcome',
+      closeSheet: () => this.setState({ sheet: null }),
+      sheetName: sheetD ? sheetD.name : '',
+      logTypeChips: logTypes.map(t => chip(t, S.logType === t, () => this.setState({ logType: t }))),
+      logDate: S.logDate, onLogDate: setS('logDate'),
+      logNotes: S.logNotes, onLogNotes: setS('logNotes'),
+      saveLog: () => {
+        const id = S.sheetId;
+        this.update(c => {
+          const d = c.disciples.find(x => x.id === id);
+          if (d) {
+            d.days = 0;
+            d.lastSeen = this.state.logType + ', Jul 10';
+            d.timeline.unshift({ k: this.state.logType === 'Note' ? 'note' : 'activity', t: this.state.logType, d: 'Jul 10', note: this.state.logNotes });
+          }
+        });
+        this.setState({ sheet: null });
+        const d = this.find(id);
+        this.toast('Logged \u2014 thanks for walking with ' + (d ? d.name.split(' ')[0] : 'them') + '!');
+      },
+
+      discOptions: marco.map(d => ({ id: d.id, name: d.name })),
+      schedWho: S.schedWho, onSchedWho: setS('schedWho'),
+      schedDate: S.schedDate, onSchedDate: setS('schedDate'),
+      schedTime: S.schedTime, onSchedTime: setS('schedTime'),
+      durChips: durVals.map(v => chip(v + ' min', S.schedDur === v, () => this.setState({ schedDur: v }))),
+      modeInPerson: () => this.setState({ schedMode: 'inperson' }),
+      modeOnline: () => this.setState({ schedMode: 'online' }),
+      mInBg: S.schedMode === 'inperson' ? '#0B0B0C' : '#FFFFFF', mInFg: S.schedMode === 'inperson' ? '#fff' : '#3A3437', mInBd: S.schedMode === 'inperson' ? '#0B0B0C' : '#E9DDC4',
+      mOnBg: S.schedMode === 'online' ? '#0B0B0C' : '#FFFFFF', mOnFg: S.schedMode === 'online' ? '#fff' : '#3A3437', mOnBd: S.schedMode === 'online' ? '#0B0B0C' : '#E9DDC4',
+      schedLocLabel: S.schedMode === 'online' ? 'Meeting link' : 'Location',
+      schedLocPh: S.schedMode === 'online' ? 'Paste Google Meet / Zoom link' : 'e.g. Kape Kada, Calamba',
+      schedLoc: S.schedLoc, onSchedLoc: setS('schedLoc'),
+      recChips: recVals.map(([v, t]) => chip(t, S.schedRec === v, () => this.setState({ schedRec: v }))),
+      saveSched: () => {
+        const dt = new Date(this.state.schedDate + 'T12:00:00');
+        const dows = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+        const hm = this.state.schedTime.split(':');
+        const h = parseInt(hm[0], 10);
+        const timeLbl = ((h % 12) || 12) + ':' + hm[1] + ' ' + (h >= 12 ? 'PM' : 'AM');
+        this.update((c, s) => {
+          c.meetings.push({
+            id: 'm' + (c.meetings.length + 10), who: s.schedWho,
+            dow: dows[dt.getDay()], day: '' + dt.getDate(), time: timeLbl,
+            place: s.schedLoc || (s.schedMode === 'online' ? 'Online' : 'Quest Laguna'),
+            mode: s.schedMode, status: 'upcoming'
+          });
+        });
+        this.setState({ sheet: null });
+        this.toast('Meeting scheduled' + (this.state.schedRec !== 'none' ? ' \u2014 repeats ' + this.state.schedRec : ''));
+      },
+
+      promoteNote: S.promoteNote, onPromoteNote: setS('promoteNote'),
+      promoteBtnBg: S.promoteNote.trim() ? '#D81E2F' : '#B1A8AB',
+      confirmPromote: () => {
+        if (!S.promoteNote.trim()) { this.toast('A note is required to promote'); return; }
+        const id = S.profileId;
+        this.update((c, s) => {
+          const d = c.disciples.find(x => x.id === id);
+          const ns = this.nextStage(d.stage);
+          if (!ns) return;
+          d.timeline.unshift({ k: 'stage', t: 'Promoted to ' + ns, d: 'Jul 10', note: s.promoteNote });
+          d.stage = ns;
+          d.inStage = 'Just promoted';
+          d.checklist = c.masterChk[ns].map(t => ({ t, done: false }));
+        });
+        this.setState({ sheet: null });
+        this.toast('Promoted \u2014 a new chapter begins!');
+      },
+
+      outcomeName: (() => { const m = S.meetings.find(x => x.id === S.outcomeMeetingId); const d = m ? this.find(m.who) : null; return d ? d.name : ''; })(),
+      outcomeNotes: S.outcomeNotes, onOutcomeNotes: setS('outcomeNotes'),
+      saveOutcome: () => {
+        const mid = S.outcomeMeetingId;
+        this.update((c, s) => {
+          const m = c.meetings.find(x => x.id === mid);
+          if (m) {
+            m.status = 'completed'; m.note = s.outcomeNotes;
+            const d = c.disciples.find(x => x.id === m.who);
+            if (d) { d.days = 0; d.timeline.unshift({ k: 'meeting', t: 'Meeting completed', d: 'Jul 10', note: s.outcomeNotes }); }
+          }
+        });
+        this.setState({ sheet: null });
+        this.toast('Meeting completed \u2014 well done!');
+      },
+
+      // admin
+      apDash: () => this.setState({ adminPage: 'dashboard' }),
+      apDisciples: () => this.setState({ adminPage: 'disciples' }),
+      apChecklists: () => this.setState({ adminPage: 'checklists' }),
+      showAdmDash: S.adminPage === 'dashboard', showAdmDisc: S.adminPage === 'disciples', showAdmChk: S.adminPage === 'checklists',
+      navDashBg: S.adminPage === 'dashboard' ? 'rgba(255,255,255,.08)' : 'transparent',
+      navDashFg: S.adminPage === 'dashboard' ? '#fff' : 'rgba(255,255,255,.55)',
+      navDashBd: S.adminPage === 'dashboard' ? '#D81E2F' : 'transparent',
+      navDiscBg: S.adminPage === 'disciples' ? 'rgba(255,255,255,.08)' : 'transparent',
+      navDiscFg: S.adminPage === 'disciples' ? '#fff' : 'rgba(255,255,255,.55)',
+      navDiscBd: S.adminPage === 'disciples' ? '#D81E2F' : 'transparent',
+      navChkBg: S.adminPage === 'checklists' ? 'rgba(255,255,255,.08)' : 'transparent',
+      navChkFg: S.adminPage === 'checklists' ? '#fff' : 'rgba(255,255,255,.55)',
+      navChkBd: S.adminPage === 'checklists' ? '#D81E2F' : 'transparent',
+
+      dashSub: pool.length + ' disciples \u00b7 ' + atRisk.length + ' need attention \u00b7 ' + upcoming.length + ' meetings this week',
+      cohort: S.cohort, onCohort: setS('cohort'),
+      funnel, atRiskRows, atRiskCount: atRisk.length, loadRows,
+
+      fSearch: S.fSearch, onFSearch: setS('fSearch'),
+      fStage: S.fStage, onFStage: setS('fStage'),
+      fEng: S.fEng, onFEng: setS('fEng'),
+      fDisc: S.fDisc, onFDisc: setS('fDisc'),
+      fCohort: S.fCohort, onFCohort: setS('fCohort'),
+      tableRows,
+      hasSelection: selIds.length > 0,
+      selLabel: selIds.length + ' selected',
+      reassignTo: S.reassignTo, onReassignTo: setS('reassignTo'),
+      applyReassign: () => {
+        const to = this.state.reassignTo;
+        this.update((c, s) => {
+          selIds.forEach(id => { const d = c.disciples.find(x => x.id === id); if (d) d.discipler = to; });
+        });
+        this.setState({ sel: {} });
+        this.toast(selIds.length + ' disciple' + (selIds.length > 1 ? 's' : '') + ' reassigned to ' + to);
+      },
+
+      chkStageTabs: ['New Believer', 'Growing', 'Leader'].map(st => ({
+        label: st, pick: () => this.setState({ chkStage: st }),
+        bg: S.chkStage === st ? '#0B0B0C' : '#FFFFFF', fg: S.chkStage === st ? '#fff' : '#3A3437'
+      })),
+      chkItems,
+      newItem: S.newItem, onNewItem: setS('newItem'),
+      addItem: () => {
+        const t = this.state.newItem.trim();
+        if (!t) return;
+        this.update((c, s) => { c.masterChk[s.chkStage].push(t); });
+        this.setState({ newItem: '' });
+        this.toast('Item added');
+      },
+
+      // toast
+      hasToast: !!S.toast, toast: S.toast || ''
+    };
+  }
+}
+</script>
+</body>
+</html>
