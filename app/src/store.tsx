@@ -57,6 +57,10 @@ interface Store {
   adminName: string
   toast: string | null
   sheet: SheetState
+  /** Disciple shown in the admin detail modal (null = closed). */
+  adminDetailId: string | null
+  openAdminDetail: (discipleId: string) => void
+  closeAdminDetail: () => void
   openSheet: (sheet: SheetState) => void
   closeSheet: () => void
   showToast: (msg: string) => void
@@ -87,6 +91,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     useState<MasterChecklists>(MASTER_CHECKLISTS)
   const [toast, setToast] = useState<string | null>(null)
   const [sheet, setSheet] = useState<SheetState>(null)
+  // Deep-linkable for demos: /admin/...?disciple=<id> opens the detail modal.
+  const [adminDetailId, setAdminDetailId] = useState<string | null>(() =>
+    typeof window === 'undefined'
+      ? null
+      : new URLSearchParams(window.location.search).get('disciple'),
+  )
   const toastTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   const showToast = useCallback((msg: string) => {
@@ -97,6 +107,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const openSheet = useCallback((s: SheetState) => setSheet(s), [])
   const closeSheet = useCallback(() => setSheet(null), [])
+  const openAdminDetail = useCallback((id: string) => setAdminDetailId(id), [])
+  const closeAdminDetail = useCallback(() => setAdminDetailId(null), [])
 
   const logActivity = useCallback(
     (discipleId: string, type: ActivityType, dateISO: string, notes: string) => {
@@ -308,6 +320,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       adminName: ADMIN_NAME,
       toast,
       sheet,
+      adminDetailId,
+      openAdminDetail,
+      closeAdminDetail,
       openSheet,
       closeSheet,
       showToast,
@@ -329,6 +344,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       masterChecklists,
       toast,
       sheet,
+      adminDetailId,
+      openAdminDetail,
+      closeAdminDetail,
       openSheet,
       closeSheet,
       showToast,

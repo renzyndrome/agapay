@@ -2,6 +2,7 @@ import { Link, Outlet, createFileRoute, useRouterState } from '@tanstack/react-r
 import { LayoutDashboard, ListChecks, Users } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useStore } from '#/store'
+import { AdminDiscipleModal } from '#/components/admin-disciple-modal'
 
 export const Route = createFileRoute('/admin')({
   component: AdminLayout,
@@ -90,6 +91,8 @@ function AdminLayout() {
       <main className="h-[calc(100vh-48px)] flex-1 overflow-y-auto max-md:h-auto">
         <Outlet />
       </main>
+
+      <AdminDiscipleModal />
     </div>
   )
 }

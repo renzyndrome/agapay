@@ -149,7 +149,7 @@ function CardTitle({
 }
 
 function AdminDashboard() {
-  const { disciples, meetings, disciplers, lifeGroups } = useStore()
+  const { disciples, meetings, disciplers, lifeGroups, openAdminDetail } = useStore()
   const [cohort, setCohort] = useState('all')
   const [circle, setCircle] = useState('all')
 
@@ -436,9 +436,11 @@ function AdminDashboard() {
               const discipler = disciplers.find((x) => x.id === d.disciplerId)
               const group = lifeGroups.find((x) => x.id === d.lifeGroupId)
               return (
-                <div
+                <button
                   key={d.id}
-                  className="flex items-center gap-3 border-t border-cream-surface px-5 py-[11px]"
+                  type="button"
+                  onClick={() => openAdminDetail(d.id)}
+                  className="flex w-full cursor-pointer items-center gap-3 border-t border-cream-surface px-5 py-[11px] text-left hover:bg-cream"
                 >
                   <AvatarDisc name={d.name} stage={d.stage} size={36} />
                   <div className="min-w-0 flex-1">
@@ -458,7 +460,7 @@ function AdminDashboard() {
                   >
                     {d.days} days
                   </span>
-                </div>
+                </button>
               )
             })
           )}

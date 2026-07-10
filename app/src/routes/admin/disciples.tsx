@@ -22,7 +22,8 @@ const filterSelectClass =
   'h-10 rounded-(--radius-input) border-[1.5px] border-cream-border bg-white px-2.5 text-[12.5px] font-semibold text-ink'
 
 function AdminDisciples() {
-  const { disciples, disciplers, lifeGroups, reassignDisciples } = useStore()
+  const { disciples, disciplers, lifeGroups, reassignDisciples, openAdminDetail } =
+    useStore()
   const [search, setSearch] = useState('')
   const [fStage, setFStage] = useState('all')
   const [fEng, setFEng] = useState('all')
@@ -186,14 +187,16 @@ function AdminDisciples() {
               return (
                 <div
                   key={d.id}
-                  className="grid grid-cols-[36px_1.5fr_.9fr_1fr_1fr_.9fr_.9fr_.9fr] items-center gap-2 border-b border-cream-surface px-4.5 py-[11px] last:border-b-0"
+                  onClick={() => openAdminDetail(d.id)}
+                  className="grid cursor-pointer grid-cols-[36px_1.5fr_.9fr_1fr_1fr_.9fr_.9fr_.9fr] items-center gap-2 border-b border-cream-surface px-4.5 py-[11px] last:border-b-0 hover:bg-cream"
                   style={{
-                    background: isSelected ? 'var(--color-rose)' : 'var(--color-white)',
+                    background: isSelected ? 'var(--color-rose)' : undefined,
                   }}
                 >
                   <input
                     type="checkbox"
                     checked={isSelected}
+                    onClick={(event) => event.stopPropagation()}
                     onChange={() =>
                       setSelected((prev) => ({ ...prev, [d.id]: !prev[d.id] }))
                     }

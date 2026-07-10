@@ -61,6 +61,14 @@
   gold-600 (`--color-amber`) instead of gold-500 — the pill tint fails contrast as
   a 2px stroke on white.
 
+- **2026-07-10 (v4) — Admin disciple detail modal.** Every disciple in the admin
+  panel is clickable (at-risk list rows + disciples table rows) and opens a
+  centered detail modal: identity header (stage/engagement/circle badges, discipler,
+  cohort, last activity), attendance sparkline, and Timeline / Checklist / Meetings /
+  Milestones tabs. The tab sections were extracted from the discipler profile into
+  shared components (`src/components/disciple-detail.tsx`) so both surfaces render
+  identically. Deep-linkable for demos: `/admin/disciples?disciple=d1`.
+
 ## Batched questions for the design/product lead
 
 1. "At-risk" naming: home chip counts red-only, admin list counts amber+red —
