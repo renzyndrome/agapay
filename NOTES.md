@@ -39,6 +39,19 @@
   inserted into the directory; discipler role at import = any member referenced by
   a `discipler_id`. See `design/GAPS.md` #23–31.
 
+- **2026-07-10 (later) — Multi-circle seed + dashboard analytics.** Added the two
+  other live Quest Circles from Tierra screenshots: CHOSEN GENERATION (led by
+  Glenda Dizon Villanueva, 8 members) and SOULDIERS (led by Ricardo II Siciban
+  Manapat, 14 members) → 43 disciples, 4 disciplers, 3 circles. Glenda and Ricardo
+  remain TRIBES disciples while discipling their own circles (multiplication).
+  Dashboard now has: Quest Circle + cohort filters, stage cards with
+  share-of-total bars, an Engagement health card (stacked bar + labeled legend +
+  threshold note), and a per-circle breakdown card (leader, size, avg checklist,
+  at-risk chip, stacked engagement bar). Admin table gained a Circle column +
+  filter. Chart colors are the fixed brand status/stage tokens; palette validation
+  showed CVD separation passes but gold/green need relief, so every segment ships
+  with visible labels and counts (never color alone) and 2px gaps between fills.
+
 ## Batched questions for the design/product lead
 
 1. "At-risk" naming: home chip counts red-only, admin list counts amber+red —

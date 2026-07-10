@@ -12,6 +12,7 @@ import {
   CURRENT_DISCIPLER_ID,
   DISCIPLERS,
   DISCIPLES,
+  LIFE_GROUPS,
   MASTER_CHECKLISTS,
   MEETINGS,
 } from '#/data/seed'
@@ -19,6 +20,7 @@ import type {
   ActivityType,
   Disciple,
   Discipler,
+  LifeGroup,
   MasterChecklists,
   Meeting,
   MeetingMode,
@@ -50,6 +52,7 @@ interface Store {
   meetings: Array<Meeting>
   masterChecklists: MasterChecklists
   disciplers: Array<Discipler>
+  lifeGroups: Array<LifeGroup>
   currentDisciplerId: string
   adminName: string
   toast: string | null
@@ -300,6 +303,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       meetings,
       masterChecklists,
       disciplers: DISCIPLERS,
+      lifeGroups: LIFE_GROUPS,
       currentDisciplerId: CURRENT_DISCIPLER_ID,
       adminName: ADMIN_NAME,
       toast,

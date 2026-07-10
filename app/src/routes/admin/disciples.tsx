@@ -22,11 +22,12 @@ const filterSelectClass =
   'h-10 rounded-(--radius-input) border-[1.5px] border-cream-border bg-white px-2.5 text-[12.5px] font-semibold text-ink'
 
 function AdminDisciples() {
-  const { disciples, disciplers, reassignDisciples } = useStore()
+  const { disciples, disciplers, lifeGroups, reassignDisciples } = useStore()
   const [search, setSearch] = useState('')
   const [fStage, setFStage] = useState('all')
   const [fEng, setFEng] = useState('all')
   const [fDisc, setFDisc] = useState('all')
+  const [fCircle, setFCircle] = useState('all')
   const [fCohort, setFCohort] = useState('all')
   const [selected, setSelected] = useState<Record<string, boolean>>({})
   const [reassignTo, setReassignTo] = useState(disciplers[0]?.id ?? '')
@@ -37,6 +38,7 @@ function AdminDisciples() {
       (fStage === 'all' || d.stage === fStage) &&
       (fEng === 'all' || engagement(d.days).key === fEng) &&
       (fDisc === 'all' || d.disciplerId === fDisc) &&
+      (fCircle === 'all' || d.lifeGroupId === fCircle) &&
       (fCohort === 'all' || d.cohort === fCohort) &&
       (!q || d.name.toLowerCase().includes(q)),
   )
@@ -99,6 +101,18 @@ function AdminDisciples() {
           ))}
         </select>
         <select
+          value={fCircle}
+          onChange={(e) => setFCircle(e.target.value)}
+          className={filterSelectClass}
+        >
+          <option value="all">All Quest Circles</option>
+          {lifeGroups.map((g) => (
+            <option key={g.id} value={g.id}>
+              {g.name}
+            </option>
+          ))}
+        </select>
+        <select
           value={fCohort}
           onChange={(e) => setFCohort(e.target.value)}
           className={filterSelectClass}
@@ -144,14 +158,15 @@ function AdminDisciples() {
 
       {/* table */}
       <Card className="mt-3.5 overflow-x-auto">
-        <div className="min-w-[760px]">
+        <div className="min-w-[880px]">
           <div
-            className="grid grid-cols-[36px_1.5fr_1fr_1fr_.9fr_.9fr_.9fr] gap-2 border-b border-cream-surface px-4.5 py-3 text-[9.5px] font-bold uppercase text-ink/40"
+            className="grid grid-cols-[36px_1.5fr_.9fr_1fr_1fr_.9fr_.9fr_.9fr] gap-2 border-b border-cream-surface px-4.5 py-3 text-[9.5px] font-bold uppercase text-ink/40"
             style={{ letterSpacing: '.08em' }}
           >
             <span />
             <span>Name</span>
             <span>Stage</span>
+            <span>Circle</span>
             <span>Discipler</span>
             <span>Engagement</span>
             <span>Last activity</span>
@@ -166,11 +181,12 @@ function AdminDisciples() {
               const e = engagement(d.days)
               const pct = checklistPct(d)
               const discipler = disciplers.find((x) => x.id === d.disciplerId)
+              const group = lifeGroups.find((x) => x.id === d.lifeGroupId)
               const isSelected = !!selected[d.id]
               return (
                 <div
                   key={d.id}
-                  className="grid grid-cols-[36px_1.5fr_1fr_1fr_.9fr_.9fr_.9fr] items-center gap-2 border-b border-cream-surface px-4.5 py-[11px] last:border-b-0"
+                  className="grid grid-cols-[36px_1.5fr_.9fr_1fr_1fr_.9fr_.9fr_.9fr] items-center gap-2 border-b border-cream-surface px-4.5 py-[11px] last:border-b-0"
                   style={{
                     background: isSelected ? 'var(--color-rose)' : 'var(--color-white)',
                   }}
@@ -188,6 +204,12 @@ function AdminDisciples() {
                   </span>
                   <span>
                     <StageBadge stage={d.stage} small />
+                  </span>
+                  <span
+                    className="truncate text-[11px] font-bold text-maroon"
+                    style={{ letterSpacing: '.03em' }}
+                  >
+                    {group?.name ?? '—'}
                   </span>
                   <span className="truncate text-[12px] font-semibold text-ink/65">
                     {discipler?.name ?? '—'}

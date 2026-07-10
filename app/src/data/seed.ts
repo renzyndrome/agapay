@@ -42,6 +42,7 @@ export interface Disciple {
   /** Prototype-only shortcut: the real app derives this from activity timestamps. */
   days: number
   disciplerId: string
+  lifeGroupId: string
   cohort: string
   inStageLabel: string
   lastSeen: string
@@ -71,8 +72,17 @@ export interface Meeting {
 export interface Discipler {
   id: string
   name: string
+  lifeGroupId: string
   /** Prototype-only: derived from the discipler's own activity logs in the real app. */
   lastLogDays: number
+}
+
+/** Quest Circle (life group) — mirrors Tierra's cell_groups. */
+export interface LifeGroup {
+  id: string
+  name: string
+  satellite: string
+  leaderDisciplerId: string
 }
 
 export type MasterChecklists = Record<Stage, Array<string>>
@@ -101,14 +111,55 @@ export const MASTER_CHECKLISTS: MasterChecklists = {
   ],
 }
 
-/** Seeded from the live TRIBES Quest Circle (Quest Laguna Main).
- *  Current signed-in discipler persona = Apple Matabuena Eugenio (cell leader). */
+/** Seeded from three live Quest Circles (Quest Laguna Main):
+ *  TRIBES (Apple), CHOSEN GENERATION (Glenda), SOULDIERS (Ricardo).
+ *  Glenda and Ricardo are themselves disciples inside TRIBES — Leaders who now
+ *  disciple their own circles (the multiplication story).
+ *  Current signed-in discipler persona = Apple Matabuena Eugenio. */
 export const CURRENT_DISCIPLER_ID = 'apple'
 export const ADMIN_NAME = 'Ptr. Dennis Ocampo'
 
+export const LIFE_GROUPS: Array<LifeGroup> = [
+  {
+    id: 'tribes',
+    name: 'TRIBES',
+    satellite: 'Quest Laguna Main',
+    leaderDisciplerId: 'apple',
+  },
+  {
+    id: 'chosen',
+    name: 'CHOSEN GENERATION',
+    satellite: 'Quest Laguna Main',
+    leaderDisciplerId: 'glenda',
+  },
+  {
+    id: 'souldiers',
+    name: 'SOULDIERS',
+    satellite: 'Quest Laguna Main',
+    leaderDisciplerId: 'ricardo',
+  },
+]
+
 export const DISCIPLERS: Array<Discipler> = [
-  { id: 'apple', name: 'Apple Matabuena Eugenio', lastLogDays: 0 },
-  { id: 'judy', name: 'Judy Ann Ramos Bulao', lastLogDays: 18 },
+  {
+    id: 'apple',
+    name: 'Apple Matabuena Eugenio',
+    lifeGroupId: 'tribes',
+    lastLogDays: 0,
+  },
+  { id: 'judy', name: 'Judy Ann Ramos Bulao', lifeGroupId: 'tribes', lastLogDays: 18 },
+  {
+    id: 'glenda',
+    name: 'Glenda Dizon Villanueva',
+    lifeGroupId: 'chosen',
+    lastLogDays: 3,
+  },
+  {
+    id: 'ricardo',
+    name: 'Ricardo II Siciban Manapat',
+    lifeGroupId: 'souldiers',
+    lastLogDays: 9,
+  },
 ]
 
 const T = today()
@@ -149,6 +200,8 @@ interface SeedRow {
   stage: Stage
   days: number
   disciplerId: string
+  /** defaults to 'tribes' */
+  lifeGroupId?: string
   cohort: string
   inStageLabel: string
   activity: string
@@ -168,6 +221,7 @@ function mk(row: SeedRow): Disciple {
     stage: row.stage,
     days: row.days,
     disciplerId: row.disciplerId,
+    lifeGroupId: row.lifeGroupId ?? 'tribes',
     cohort: row.cohort,
     inStageLabel: row.inStageLabel,
     lastSeen,
@@ -419,6 +473,279 @@ export const DISCIPLES: Array<Disciple> = [
     inStageLabel: '1 month',
     activity: 'Life Group',
     chkDone: 2,
+  }),
+  // ── CHOSEN GENERATION (Glenda's disciples) ──
+  mk({
+    id: 'c1',
+    name: 'Ashlie Mae Constantino Hicana',
+    stage: 'Leader',
+    days: 4,
+    disciplerId: 'glenda',
+    lifeGroupId: 'chosen',
+    cohort: 'Q2 2026',
+    inStageLabel: '2 months',
+    activity: 'Life Group',
+    chkDone: 2,
+  }),
+  mk({
+    id: 'c2',
+    name: 'Cassandra Nicole C. Yuson',
+    stage: 'Leader',
+    days: 7,
+    disciplerId: 'glenda',
+    lifeGroupId: 'chosen',
+    cohort: 'Q2 2026',
+    inStageLabel: '3 months',
+    activity: 'Sunday Service',
+    chkDone: 3,
+    milestones: 4,
+  }),
+  mk({
+    id: 'c3',
+    name: 'Elijah Krishane Constantino Hicana',
+    stage: 'Leader',
+    days: 12,
+    disciplerId: 'glenda',
+    lifeGroupId: 'chosen',
+    cohort: 'Q2 2026',
+    inStageLabel: '2 months',
+    activity: 'Prayer Meeting',
+    chkDone: 1,
+  }),
+  mk({
+    id: 'c4',
+    name: 'Rhuielyn Yuson',
+    stage: 'Growing',
+    days: 30,
+    disciplerId: 'glenda',
+    lifeGroupId: 'chosen',
+    cohort: 'Q2 2026',
+    inStageLabel: '6 weeks',
+    activity: 'Sunday Service',
+    chkDone: 1,
+    attendance: [1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0],
+  }),
+  mk({
+    id: 'c5',
+    name: 'Rhian C. Hicana',
+    stage: 'Leader',
+    days: 2,
+    disciplerId: 'glenda',
+    lifeGroupId: 'chosen',
+    cohort: 'Q2 2026',
+    inStageLabel: '1 month',
+    activity: 'One-on-one',
+    chkDone: 2,
+  }),
+  mk({
+    id: 'c6',
+    name: 'Tyra Monteclaro',
+    stage: 'Leader',
+    days: 10,
+    disciplerId: 'glenda',
+    lifeGroupId: 'chosen',
+    cohort: 'Q2 2026',
+    inStageLabel: '2 months',
+    activity: 'Life Group',
+    chkDone: 2,
+  }),
+  mk({
+    id: 'c7',
+    name: 'Joyce Mendez Constantino',
+    stage: 'Growing',
+    days: 17,
+    disciplerId: 'glenda',
+    lifeGroupId: 'chosen',
+    cohort: 'Q2 2026',
+    inStageLabel: '2 months',
+    activity: 'Life Group',
+    chkDone: 2,
+  }),
+  mk({
+    id: 'c8',
+    name: 'Akiko Buisan Fernandez',
+    stage: 'Growing',
+    days: 6,
+    disciplerId: 'glenda',
+    lifeGroupId: 'chosen',
+    cohort: 'Q2 2026',
+    inStageLabel: '2 months',
+    activity: 'Sunday Service',
+    chkDone: 3,
+  }),
+  // ── SOULDIERS (Ricardo's disciples) ──
+  mk({
+    id: 's1',
+    name: 'Sonny Degasa Romero Jr.',
+    stage: 'Leader',
+    days: 3,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q1 2026',
+    inStageLabel: '4 months',
+    activity: 'Life Group',
+    chkDone: 3,
+    milestones: 4,
+  }),
+  mk({
+    id: 's2',
+    name: 'John Carlo Remiendo Añonuevo',
+    stage: 'Growing',
+    days: 9,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q1 2026',
+    inStageLabel: '3 months',
+    activity: 'Sunday Service',
+    chkDone: 2,
+  }),
+  mk({
+    id: 's3',
+    name: 'Jester Manganti Tungul',
+    stage: 'Leader',
+    days: 6,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q1 2026',
+    inStageLabel: '4 months',
+    activity: 'One-on-one',
+    chkDone: 2,
+  }),
+  mk({
+    id: 's4',
+    name: 'Daniel Mandigma Tenefrancia',
+    stage: 'Growing',
+    days: 11,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q1 2026',
+    inStageLabel: '2 months',
+    activity: 'Life Group',
+    chkDone: 3,
+  }),
+  mk({
+    id: 's5',
+    name: 'Andrei Joseph Balagtas',
+    stage: 'Leader',
+    days: 1,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q1 2026',
+    inStageLabel: '5 months',
+    activity: 'Prayer Meeting',
+    chkDone: 3,
+    milestones: 4,
+  }),
+  mk({
+    id: 's6',
+    name: 'Matthew Elamparo',
+    stage: 'Growing',
+    days: 22,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q2 2026',
+    inStageLabel: '2 months',
+    activity: 'Sunday Service',
+    chkDone: 1,
+  }),
+  mk({
+    id: 's7',
+    name: 'Rhy Lee Ebueza Santos',
+    stage: 'Growing',
+    days: 8,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q2 2026',
+    inStageLabel: '2 months',
+    activity: 'Life Group',
+    chkDone: 2,
+  }),
+  mk({
+    id: 's8',
+    name: 'Anjolito Cruz',
+    stage: 'Growing',
+    days: 36,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q2 2026',
+    inStageLabel: '3 months',
+    activity: 'Sunday Service',
+    chkDone: 1,
+    attendance: [1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0],
+  }),
+  mk({
+    id: 's9',
+    name: 'Prince Christian G. Concordia',
+    stage: 'Growing',
+    days: 13,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q2 2026',
+    inStageLabel: '2 months',
+    activity: 'Life Group',
+    chkDone: 2,
+  }),
+  mk({
+    id: 's10',
+    name: 'Gil Dante Briones',
+    stage: 'Leader',
+    days: 5,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q1 2026',
+    inStageLabel: '6 months',
+    activity: 'One-on-one',
+    chkDone: 2,
+  }),
+  mk({
+    id: 's11',
+    name: 'Ramon Jr. Dingding Santos',
+    stage: 'Leader',
+    days: 18,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q1 2026',
+    inStageLabel: '5 months',
+    activity: 'Sunday Service',
+    chkDone: 2,
+  }),
+  mk({
+    id: 's12',
+    name: 'Alexander Jr. Pareja Bazar',
+    stage: 'Growing',
+    days: 2,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q2 2026',
+    inStageLabel: '1 month',
+    activity: 'Life Group',
+    chkDone: 2,
+  }),
+  mk({
+    id: 's13',
+    name: 'Kier Musa',
+    stage: 'Growing',
+    days: 15,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q2 2026',
+    inStageLabel: '6 weeks',
+    activity: 'Sunday Service',
+    chkDone: 1,
+  }),
+  mk({
+    id: 's14',
+    name: 'John Gilbert Ang',
+    stage: 'New Believer',
+    days: 5,
+    disciplerId: 'ricardo',
+    lifeGroupId: 'souldiers',
+    cohort: 'Q2 2026',
+    inStageLabel: '2 weeks',
+    activity: 'Sunday Service',
+    chkDone: 1,
+    milestones: 1,
+    attendance: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
   }),
 ]
 
