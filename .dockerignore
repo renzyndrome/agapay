@@ -1,0 +1,8 @@
+app/node_modules
+app/dist
+app/.tanstack
+app/.vscode
+design
+.claude
+*.md
+!app/README.md

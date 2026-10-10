@@ -1,0 +1,14 @@
+# Supabase local config for Agapay.
+# The discipleship_* migrations are the real Agapay schema. The tierra_baseline
+# migration reconstructs only the directory tables Agapay reads; on the shared
+# remote it must be marked already-applied (supabase migration repair) so it
+# NEVER executes against production.
+project_id = "agapay"
+
+[db]
+# must match production (verified live 2026-07-12: PostgreSQL 17.6)
+major_version = 17
+
+[api]
+schemas = ["public", "discipleship"]
+extra_search_path = ["public", "discipleship"]

@@ -1,0 +1,116 @@
+@import 'tailwindcss';
+
+/* Quest Laguna "cream mode" tokens — ported from
+   design/design_handoff_agapay/design_files/quest-laguna-tokens.css
+   plus app-only semantic values from the hi-fi prototype.
+   Components reference these tokens, never raw hex (RULES.md #23). */
+@theme {
+  --color-*: initial;
+
+  /* brand */
+  --color-brand: #d81e2f;
+  --color-brand-press: #b81529;
+  --color-maroon: #8e0e1e;
+  --color-maroon-deep: #5c0a14;
+
+  /* ink */
+  --color-ink: #0b0b0c;
+  --color-ink-700: #3a3437;
+  --color-ink-500: #6b6266;
+  --color-ink-300: #b1a8ab;
+  --color-ink-100: #e6e1e3;
+  --color-white: #ffffff;
+
+  /* cream */
+  --color-cream: #fbf5e9;
+  --color-cream-surface: #f4ecdc;
+  --color-cream-border: #e9ddc4;
+
+  /* status */
+  --color-green: #3e7a4e;
+  --color-green-tint: #e4efe0;
+  --color-amber: #c28e0a;
+  --color-amber-text: #9a7208;
+  --color-amber-tint: #f8ecd2;
+  --color-rose: #fde4e7;
+
+  /* gold — Growing funnel bar + Growing stage pill only */
+  --color-gold: #e8b11f;
+  --color-gold-tint: #fbeab3;
+  --color-gold-text: #7a5a06;
+
+  --font-display: 'Poppins', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+
+  --shadow-card: 0 8px 24px rgb(0 0 0 / 0.07);
+  --shadow-pop: 0 18px 40px rgb(0 0 0 / 0.35);
+  --shadow-glow: 0 8px 28px rgb(216 30 47 / 0.35);
+
+  --radius-card: 16px;
+  --radius-input: 12px;
+  --radius-sheet: 20px;
+
+  --ease-ql: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --animate-sheet-up: sheet-up 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  --animate-fade: fade 160ms ease-out;
+
+  @keyframes sheet-up {
+    from {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #efe9dd;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: var(--font-body);
+}
+
+::placeholder {
+  color: rgb(11 11 12 / 0.35);
+}
+
+/* section label motif: 12.5px caps .12em */
+.section-label {
+  font:
+    700 12.5px var(--font-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.press:active {
+  transform: scale(0.97);
+}

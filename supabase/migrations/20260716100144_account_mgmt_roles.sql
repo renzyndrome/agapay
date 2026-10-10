@@ -1,0 +1,4 @@
+-- Placeholder for a migration owned by the Quest Laguna directory app ("account_mgmt_roles").
+-- It is ALREADY APPLIED on the shared project; this empty file exists only so
+-- the Supabase CLI's local/remote history check passes for Agapay's pushes.
+-- Never put SQL here — that migration belongs to the other app.
